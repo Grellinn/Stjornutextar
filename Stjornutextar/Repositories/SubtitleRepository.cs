@@ -90,7 +90,7 @@ namespace Stjornutextar.Repositories
 			List<SelectListItem> categories = new List<SelectListItem>();
 
 			categories.Add(new SelectListItem { Text = "", Value = "" });
-			categories.Add(new SelectListItem { Text = "", Value = "" });
+			categories.Add(new SelectListItem { Text = db.Categories, Value = "" });
 		}
 	}
 }

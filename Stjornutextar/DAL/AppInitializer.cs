@@ -35,6 +35,25 @@ namespace Stjornutextar.DAL
 
 			titles.ForEach(t => context.Titles.Add(t));
 			context.SaveChanges();
+
+			var categories = new List<Category>
+			{
+				new Category{
+					CategoryName="Kvikmyndir"
+				},
+				new Category{
+					CategoryName="Þættir"
+				},
+				new Category{
+					CategoryName="Fræðsluefni"
+				},
+				new Category{
+					CategoryName="Barnaefni"
+				}
+			};
+
+			categories.ForEach(c => context.Categories.Add(c));
+			context.SaveChanges();
 		}
 	}
 }

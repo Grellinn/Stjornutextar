@@ -20,6 +20,7 @@ namespace Stjornutextar.DAL
 		// Búum töflur fyrir gagnagrunninn sem á að mappa við klasana.
 		public DbSet<Subtitle> Subtitles { get; set; }
 		public DbSet<Title> Titles { get; set; }
+		public DbSet<Category> Categories { get; set; }
 
 		// Kemur í veg fyrir að EntityFramework-ið breyti nafni töflunnar í fleirtölu þegar hún býr hana til.
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
