@@ -11,7 +11,7 @@ namespace Stjornutextar.DAL
 	{
 		// Látum default constructorinn vera tengingu við AppContext reference-ið í web.config
 		public AppContext()
-			: base("AppContext")
+			: base("DefaultConnection")
 		{
 
 		}
