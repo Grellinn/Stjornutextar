@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stjornutextar.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -17,14 +18,13 @@ namespace Stjornutextar.DAL
 		}
 
 		// Búum töflur fyrir gagnagrunninn sem á að mappa við klasana.
-		//public DbSet<NewsItem> News { get; set; }
+		public DbSet<Subtitle> Subtitles { get; set; }
+		public DbSet<Title> Titles { get; set; }
 
 		// Kemur í veg fyrir að EntityFramework-ið breyti nafni töflunnar í fleirtölu þegar hún býr hana til.
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 		}
-
-		public System.Data.Entity.DbSet<Stjornutextar.Models.Subtitle> Subtitles { get; set; }
 	}
 }
