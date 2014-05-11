@@ -8,20 +8,22 @@ using System.Web;
 using System.Web.Mvc;
 using Stjornutextar.Models;
 using Stjornutextar.DAL;
+using Stjornutextar.Repositories;
 
 namespace Stjornutextar.Controllers
 {
     public class SubtitleController : Controller
     {
-        private AppContext db = new AppContext();
+		// Búum til tilvik af repository-inum okkar til að vinna með í gegnum föllin.
+		SubtitleRepository repo = new SubtitleRepository();
 
         // GET: /Subtitle/
         public ActionResult Index()
         {
-            return View(db.Subtitles.ToList());
+            return View(repo.GetFirst10Subtitles());
         }
 
-        // GET: /Subtitle/Details/5
+        /*// GET: /Subtitle/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -123,6 +125,6 @@ namespace Stjornutextar.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }*/
     }
 }

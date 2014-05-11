@@ -13,6 +13,7 @@ namespace Stjornutextar.Models
 		public string MediaURL { get; set; }
 		public string SubFile { get; set; }
 		public DateTime PublishDate { get; set; }
+		public int Votes { get; set; }
 
 		#region Foreign Keys
 		public int CategoryID { get; set; }
