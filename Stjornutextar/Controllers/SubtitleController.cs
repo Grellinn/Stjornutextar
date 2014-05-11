@@ -38,7 +38,7 @@ namespace Stjornutextar.Controllers
             return View(getSubtitleById);
         }
 
-        /*// GET: /Subtitle/Create
+        // GET: /Subtitle/Create
         public ActionResult Create()
         {
             return View();
@@ -53,14 +53,14 @@ namespace Stjornutextar.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Subtitles.Add(subtitle);
-                db.SaveChanges();
+				repo.AddSubtitle(subtitle);
+				repo.SaveSubtitle();
                 return RedirectToAction("Index");
             }
 
             return View(subtitle);
         }
-
+		
         // GET: /Subtitle/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -68,12 +68,12 @@ namespace Stjornutextar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subtitle subtitle = db.Subtitles.Find(id);
-            if (subtitle == null)
+			var subtitleByID = repo.GetSubtitleById(id);
+            if (subtitleByID == null)
             {
                 return HttpNotFound();
             }
-            return View(subtitle);
+            return View(subtitleByID);
         }
 
         // POST: /Subtitle/Edit/5
@@ -81,17 +81,16 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,Title,Status,MediaURL,SubFile,PublishDate,CategoryID,LanguageID,CommentID,TitleID")] Subtitle subtitle)
+        public ActionResult Edit([Bind(Include="ID,Title,Category,Language,PublishDate,MediaURL,SubtitleFileURL,Status,Votes")] Subtitle subtitle)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(subtitle).State = EntityState.Modified;
-                db.SaveChanges();
+				repo.UpdateSubtitle(subtitle);
                 return RedirectToAction("Index");
             }
             return View(subtitle);
         }
-
+		/*
         // GET: /Subtitle/Delete/5
         public ActionResult Delete(int? id)
         {

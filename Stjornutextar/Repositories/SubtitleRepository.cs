@@ -43,5 +43,38 @@ namespace Stjornutextar.Repositories
 
 			return getSubtitleById;
 		}
+
+		// Fall sem vistar Subtitles í gagnagrunni.
+		public void SaveSubtitle()
+		{
+			db.SaveChanges();
+		}
+
+		// Fall sem býr til Subtitle í gagnagrunni.
+		public void AddSubtitle(Subtitle s)
+		{
+			db.Subtitles.Add(s);
+		}
+
+		// Fall sem uppfærir Subtitle eftir Id-inu hans í gagnagrunninum og skilar
+		// þér í Index eða NotFound View ef engu er skilað til baka
+		public void UpdateSubtitle(Subtitle s)
+		{
+			Subtitle subtitleByID = GetSubtitleById(s.ID);
+
+			if (subtitleByID != null)
+			{
+				subtitleByID.CategoryID = s.CategoryID;
+				subtitleByID.LanguageID = s.LanguageID;
+				subtitleByID.MediaURL = s.MediaURL;
+				subtitleByID.PublishDate = s.PublishDate;
+				subtitleByID.Status = s.Status;
+				subtitleByID.SubFile = s.SubFile;
+				subtitleByID.Title = s.Title;
+				subtitleByID.Votes = s.Votes;
+				subtitleByID.CommentID = s.CommentID;
+				subtitleByID.TitleID = s.TitleID; 
+			}
+		}
 	}
 }
