@@ -162,6 +162,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SubtitleController.cs" />
     <Compile Include="DAL\AppContext.cs" />
     <Compile Include="DAL\AppInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -219,6 +220,11 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Subtitle\Create.cshtml" />
+    <Content Include="Views\Subtitle\Delete.cshtml" />
+    <Content Include="Views\Subtitle\Details.cshtml" />
+    <Content Include="Views\Subtitle\Edit.cshtml" />
+    <Content Include="Views\Subtitle\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
