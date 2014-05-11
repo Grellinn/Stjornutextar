@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Stjornutextar.Repositories
 {
@@ -30,7 +31,7 @@ namespace Stjornutextar.Repositories
 			var first10Subtitles = (from s in db.Subtitles
 									orderby s.PublishDate ascending
 									select s).Take(10);
-
+			
 			return first10Subtitles;
 		}
 
@@ -81,6 +82,15 @@ namespace Stjornutextar.Repositories
 		public void RemoveSubtitle(Subtitle s)
 		{
 			db.Subtitles.Remove(s);
+		}
+
+		// Fall sem skilar lista af flokkum úr gagnagrunni.
+		public void FeedCategoryList()
+		{
+			List<SelectListItem> categories = new List<SelectListItem>();
+
+			categories.Add(new SelectListItem { Text = "", Value = "" });
+			categories.Add(new SelectListItem { Text = "", Value = "" });
 		}
 	}
 }
