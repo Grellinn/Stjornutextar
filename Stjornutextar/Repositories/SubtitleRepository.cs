@@ -76,5 +76,11 @@ namespace Stjornutextar.Repositories
 				subtitleByID.TitleID = s.TitleID; 
 			}
 		}
+
+		// Fall sem eyðir út Subtitle í gagnagrunni.
+		public void RemoveSubtitle(Subtitle s)
+		{
+			db.Subtitles.Remove(s);
+		}
 	}
 }

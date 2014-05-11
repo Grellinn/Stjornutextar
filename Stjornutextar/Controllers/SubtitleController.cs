@@ -90,7 +90,7 @@ namespace Stjornutextar.Controllers
             }
             return View(subtitle);
         }
-		/*
+		
         // GET: /Subtitle/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -98,12 +98,12 @@ namespace Stjornutextar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subtitle subtitle = db.Subtitles.Find(id);
-            if (subtitle == null)
+			var subtitleByID = repo.GetSubtitleById(id);
+            if (subtitleByID == null)
             {
                 return HttpNotFound();
             }
-            return View(subtitle);
+            return View(subtitleByID);
         }
 
         // POST: /Subtitle/Delete/5
@@ -111,19 +111,19 @@ namespace Stjornutextar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Subtitle subtitle = db.Subtitles.Find(id);
-            db.Subtitles.Remove(subtitle);
-            db.SaveChanges();
+			var subtitleByID = repo.GetSubtitleById(id);
+			repo.RemoveSubtitle(subtitleByID);
+			repo.SaveSubtitle();
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }*/
+		//protected override void Dispose(bool disposing)
+		//{
+		//	if (disposing)
+		//	{
+		//		db.Dispose();
+		//	}
+		//	base.Dispose(disposing);
+		//}
     }
 }
