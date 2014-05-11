@@ -33,5 +33,15 @@ namespace Stjornutextar.Repositories
 
 			return first10Subtitles;
 		}
+
+		// Fall sem sækir Subtitles eftir Id-i hans eða null ef hann er ekki til.
+		public Subtitle GetSubtitleById(int? id)
+		{
+			var getSubtitleById = (from s in db.Subtitles
+								   where s.ID == id
+								   select s).SingleOrDefault();
+
+			return getSubtitleById;
+		}
 	}
 }

@@ -23,22 +23,22 @@ namespace Stjornutextar.Controllers
             return View(repo.GetFirst10Subtitles());
         }
 
-        /*// GET: /Subtitle/Details/5
+        // GET: /Subtitle/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Subtitle subtitle = db.Subtitles.Find(id);
-            if (subtitle == null)
+			var getSubtitleById = repo.GetSubtitleById(id);
+            if (getSubtitleById == null)
             {
                 return HttpNotFound();
             }
-            return View(subtitle);
+            return View(getSubtitleById);
         }
 
-        // GET: /Subtitle/Create
+        /*// GET: /Subtitle/Create
         public ActionResult Create()
         {
             return View();

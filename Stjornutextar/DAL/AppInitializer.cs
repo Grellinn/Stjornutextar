@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Stjornutextar.DAL
 {
-	public class AppInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<AppContext>
+	public class AppInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppContext>
 	{
 	}
 }
