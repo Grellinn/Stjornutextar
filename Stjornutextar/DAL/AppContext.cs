@@ -21,6 +21,7 @@ namespace Stjornutextar.DAL
 		public DbSet<Subtitle> Subtitles { get; set; }
 		public DbSet<Title> Titles { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Language> Languages { get; set; }
 
 		// Kemur í veg fyrir að EntityFramework-ið breyti nafni töflunnar í fleirtölu þegar hún býr hana til.
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)

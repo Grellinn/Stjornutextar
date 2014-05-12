@@ -54,6 +54,25 @@ namespace Stjornutextar.DAL
 
 			categories.ForEach(c => context.Categories.Add(c));
 			context.SaveChanges();
+
+			var languages = new List<Language>
+			{
+				new Language{
+					LanguageName="Íslenska"
+				},
+				new Language{
+					LanguageName="Danska"
+				},
+				new Language{
+					LanguageName="Sænska"
+				},
+				new Language{
+					LanguageName="Norska"
+				}
+			};
+
+			languages.ForEach(l => context.Languages.Add(l));
+			context.SaveChanges();
 		}
 	}
 }

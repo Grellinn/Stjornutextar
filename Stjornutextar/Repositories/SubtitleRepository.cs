@@ -85,12 +85,31 @@ namespace Stjornutextar.Repositories
 		}
 
 		// Fall sem skilar lista af flokkum úr gagnagrunni.
-		public void FeedCategoryList()
+		public List<SelectListItem> FeedCategoryList()
 		{
 			List<SelectListItem> categories = new List<SelectListItem>();
+			
+			foreach (var c in db.Categories)
+			{
+				string tempValue = Convert.ToString(c.ID);
+				categories.Add(new SelectListItem { Text = c.CategoryName, Value = tempValue });
+			}
 
-			categories.Add(new SelectListItem { Text = "", Value = "" });
-			categories.Add(new SelectListItem { Text = db.Categories, Value = "" });
+			return categories;
+		}
+
+		// Fall sem skilar lista af flokkum úr gagnagrunni.
+		public List<SelectListItem> FeedLanguageList()
+		{
+			List<SelectListItem> languages = new List<SelectListItem>();
+
+			foreach (var l in db.Languages)
+			{
+				string tempValue = Convert.ToString(l.ID);
+				languages.Add(new SelectListItem { Text = l.LanguageName, Value = tempValue });
+			}
+
+			return languages;
 		}
 	}
 }
