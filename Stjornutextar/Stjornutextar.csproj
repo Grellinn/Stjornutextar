@@ -230,6 +230,8 @@
     <Content Include="Views\Subtitle\Details.cshtml" />
     <Content Include="Views\Subtitle\Edit.cshtml" />
     <Content Include="Views\Subtitle\Index.cshtml" />
+    <Content Include="Views\Subtitle\Partial1.cshtml" />
+    <Content Include="Views\Subtitle\Partial2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

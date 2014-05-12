@@ -52,8 +52,8 @@ namespace Stjornutextar.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "Title,Category,Language,MediaURL")] SaveSubtitleViewModel subtitleVM)
+        //[ValidateAntiForgeryToken]
+		public ActionResult Create(SaveSubtitleViewModel subtitleVM)
         {
 			
 			if (ModelState.IsValid)

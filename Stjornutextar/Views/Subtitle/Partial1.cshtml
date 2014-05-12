@@ -1,0 +1,63 @@
+﻿@model Stjornutextar.ViewModels.SaveSubtitleViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Subtitle</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subtitle.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Subtitle)
+                @*@Html.EditorFor(model => model.Subtitle.Title)*@
+                @*@Html.ValidationMessageFor(model => model.Subtitle.Title)*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subtitle.Category, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Subtitle, new SelectList(Model.Categories, "ID", "CategoryName"))
+                @Html.ValidationMessageFor(model => model.Subtitle.Category)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subtitle.Language, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Subtitle, new SelectList(Model.Languages, "ID", "LanguageName"))
+                @Html.ValidationMessageFor(model => model.Subtitle.Language)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subtitle.MediaURL, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Subtitle.MediaURL)
+                @Html.ValidationMessageFor(model => model.Subtitle.MediaURL)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subtitle.SubFile, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="SubFile" />
+                @Html.ValidationMessageFor(model => model.Subtitle.SubFile)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -60,10 +60,10 @@ namespace Stjornutextar.Repositories
 			Subtitle newSubtitle = new Subtitle();
 
 			#region tekið úr ViewModel yfir í Subtitle
-			newSubtitle.Title = subtitleVM.Subtitle.Title;
-			newSubtitle.Language = subtitleVM.Subtitle.Language;
-			newSubtitle.Category = subtitleVM.Subtitle.Category;
-			newSubtitle.MediaURL = subtitleVM.Subtitle.MediaURL;
+			newSubtitle.Title = subtitleVM.Title;
+			newSubtitle.Language = subtitleVM.Language;
+			newSubtitle.Category = subtitleVM.Category;
+			newSubtitle.MediaURL = subtitleVM.MediaUrl;
 			#endregion
 
 			#region Viðbótarupplýsingar fyrir Subtitle
