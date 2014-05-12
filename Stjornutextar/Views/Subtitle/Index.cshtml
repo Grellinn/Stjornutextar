@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Stjornutextar.Models.Subtitle>
 
+
 @{
     ViewBag.Title = "Stjörnutextar";
 }
@@ -11,6 +12,9 @@
 <div class="index_logo"><img src="~/Content/img/Logo.png" /></div>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -26,23 +30,18 @@
         <th>
             @Html.DisplayNameFor(model => model.PublishDate)
         </th>
+
         <th>
-            @Html.DisplayNameFor(model => model.CategoryID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LanguageID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CommentID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TitleID)
+            @Html.DisplayNameFor(model => model.Language)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
@@ -58,22 +57,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.PublishDate)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Language)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CommentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TitleID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+           <span class="edit_button"> @Html.ActionLink("Edit", "Edit", new { id=item.ID })</span>
         </td>
     </tr>
 }

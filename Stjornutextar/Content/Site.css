@@ -31,6 +31,15 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+.edit_button{
+    border-radius:2px;
+    background-color: #404040;
+    color: white;
+    padding: 5px 15px;
+    font-size: 10px;
+    cursor: pointer;
+    text-decoration: none !important;
+}
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,

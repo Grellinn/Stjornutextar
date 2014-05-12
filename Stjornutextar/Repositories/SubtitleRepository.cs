@@ -95,8 +95,8 @@ namespace Stjornutextar.Repositories
 			
 			foreach (var c in db.Categories)
 			{
-				string tempValue = Convert.ToString(c.ID);
-				categories.Add(new SelectListItem { Text = c.CategoryName, Value = tempValue });
+				//string tempValue = Convert.ToString(c.ID);
+				categories.Add(new SelectListItem { Text = c.CategoryName, Value = c.CategoryName });
 			}
 
 			return categories;
@@ -109,8 +109,8 @@ namespace Stjornutextar.Repositories
 
 			foreach (var l in db.Languages)
 			{
-				string tempValue = Convert.ToString(l.ID);
-				languages.Add(new SelectListItem { Text = l.LanguageName, Value = tempValue });
+				//string tempValue = Convert.ToString(l.ID);
+				languages.Add(new SelectListItem { Text = l.LanguageName, Value = l.LanguageName });
 			}
 
 			return languages;
@@ -123,8 +123,8 @@ namespace Stjornutextar.Repositories
 
 			foreach (var t in db.Titles)
 			{
-				string tempValue = Convert.ToString(t.ID);
-				titles.Add(new SelectListItem { Text = t.TitleName, Value = tempValue });
+				//string tempValue = Convert.ToString(t.ID);
+				titles.Add(new SelectListItem { Text = t.TitleName, Value = t.TitleName });
 			}
 
 			return titles;
