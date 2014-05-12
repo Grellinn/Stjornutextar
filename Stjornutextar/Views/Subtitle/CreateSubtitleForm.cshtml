@@ -1,20 +1,19 @@
-﻿@model Stjornutextar.Models.SaveSubtitleViewModel
+﻿@model Stjornutextar.ViewModels.SaveSubtitleViewModel
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Subtitle</h4>
         <hr />
         @Html.ValidationSummary(true)
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.Subtitle.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Subtitle.Title)            
-    @*@Html.DropDownListFor(model => model.Title, ViewBag.Titles as List<SelectListItem>)*@
+                @Html.EditorFor(model => model.Subtitle.Title)
+                @*@Html.DropDownListFor(model => model.Title, ViewBag.Titles as List<SelectListItem>)*@
                 @Html.ValidationMessageFor(model => model.Subtitle.Title)
             </div>
         </div>
@@ -22,8 +21,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Subtitle.Category, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Subtitle, new SelectList(Model.Categories, "ID", "CategoryName" ))
-    @*@Html.DropDownListFor(model => model.Category, ViewBag.Categories as List<SelectListItem>)*@
+                @Html.DropDownListFor(model => model.Subtitle, new SelectList(Model.Categories, "ID", "CategoryName"))
+                @*@Html.DropDownListFor(model => model.Category, ViewBag.Categories as List<SelectListItem>)*@
                 @Html.ValidationMessageFor(model => model.Subtitle.Category)
             </div>
         </div>
@@ -65,7 +64,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

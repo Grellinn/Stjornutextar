@@ -231,6 +231,7 @@
     <Content Include="Views\Subtitle\Edit.cshtml" />
     <Content Include="Views\Subtitle\Index.cshtml" />
     <Content Include="Views\Subtitle\SubtitleForm.cshtml" />
+    <Content Include="Views\Subtitle\CreateSubtitleForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

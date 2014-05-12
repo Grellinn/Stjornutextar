@@ -35,7 +35,7 @@ namespace Stjornutextar.Repositories
 			return first10Subtitles;
 		}
 
-		// Fall sem sækir Subtitles eftir Id-i hans eða null ef hann er ekki til.
+		// Fall sem sækir Subtitle eftir Id-i hans eða null ef hann er ekki til.
 		public Subtitle GetSubtitleById(int? id)
 		{
 			var getSubtitleById = (from s in db.Subtitles
@@ -51,7 +51,7 @@ namespace Stjornutextar.Repositories
 			db.SaveChanges();
 		}
 
-		// Fall sem býr til Subtitle í gagnagrunni.
+		// Fall sem bætir Subtitle í gagnagrunn.
 		public void AddSubtitle(Subtitle s)
 		{
 			db.Subtitles.Add(s);
@@ -87,10 +87,10 @@ namespace Stjornutextar.Repositories
 			Subtitle newSubtitle = new Subtitle();
 
 			#region tekið úr ViewModel yfir í Subtitle
-			newSubtitle.Title = sVM.Title;
-			newSubtitle.Language = sVM.Language;
-			newSubtitle.Category = sVM.Category;
-			newSubtitle.MediaURL = sVM.MediaUrl;
+			newSubtitle.Title = sVM.Subtitle.Title;
+			newSubtitle.Language = sVM.Subtitle.Language;
+			newSubtitle.Category = sVM.Subtitle.Category;
+			newSubtitle.MediaURL = sVM.Subtitle.MediaURL;
 			#endregion
 
 			#region Viðbótarupplýsingar fyrir Subtitle
@@ -154,19 +154,20 @@ namespace Stjornutextar.Repositories
 		// Fall sem sækir lista af flokkum og tungumálum og setur í SaveSubtitleViewModel
 		public SaveSubtitleViewModel PopulateSaveSubtitleViewModel(SaveSubtitleViewModel subtitleVM)
 		{
-			//subtitleVM.Categories = FeedCategoryList();
-			//subtitleVM.Languages = FeedLanguageList();
-
+			subtitleVM.Categories = new List<Category>();
+			
 			foreach (var c in db.Categories)
 			{
-				subtitleVM.Categories.Add(new SelectListItem { Text = c.CategoryName, Value = c.CategoryName });
+				subtitleVM.Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
 			}
+
+			subtitleVM.Languages = new List<Language>();
 
 			foreach (var l in db.Languages)
 			{
-				subtitleVM.Languages.Add(new SelectListItem { Text = l.LanguageName, Value = l.LanguageName });
+				subtitleVM.Languages.Add(new Language { LanguageName = l.LanguageName, ID = l.ID });
 			}
-			
+
 			return subtitleVM;
 		}
 	}
