@@ -17,7 +17,7 @@ namespace Stjornutextar.ViewModels
 		//public DateTime PublishDate { get; set; }
 		//[NotMapped]
 		//public HttpPostedFileBase SubFile { get; set; }
-		public Subtitle Subtitle { get; set; }
+		public Subtitle Subtitle = new Subtitle();
 		//[NotMapped]
 		//public List<SelectListItem> Categories { get; set; }
 		//[NotMapped]

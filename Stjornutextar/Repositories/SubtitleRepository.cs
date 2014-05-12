@@ -35,14 +35,51 @@ namespace Stjornutextar.Repositories
 			return first10Subtitles;
 		}
 
-		// Fall sem sækir Subtitle eftir Id-i hans eða null ef hann er ekki til.
-		public Subtitle GetSubtitleById(int? id)
+		// Fall sem sækir lista af flokkum og tungumálum og setur í SaveSubtitleViewModel
+		public SaveSubtitleViewModel PopulateSaveSubtitleViewModel(SaveSubtitleViewModel subtitleVM)
 		{
-			var getSubtitleById = (from s in db.Subtitles
-								   where s.ID == id
-								   select s).SingleOrDefault();
+			subtitleVM.Categories = new List<Category>();
 
-			return getSubtitleById;
+			foreach (var c in db.Categories)
+			{
+				subtitleVM.Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
+			}
+
+			subtitleVM.Languages = new List<Language>();
+
+			foreach (var l in db.Languages)
+			{
+				subtitleVM.Languages.Add(new Language { LanguageName = l.LanguageName, ID = l.ID });
+			}
+
+			return subtitleVM;
+		}
+		
+		public void CreateSubtitle(SaveSubtitleViewModel subtitleVM)
+		{
+			Subtitle newSubtitle = new Subtitle();
+
+			#region tekið úr ViewModel yfir í Subtitle
+			newSubtitle.Title = subtitleVM.Subtitle.Title;
+			newSubtitle.Language = subtitleVM.Subtitle.Language;
+			newSubtitle.Category = subtitleVM.Subtitle.Category;
+			newSubtitle.MediaURL = subtitleVM.Subtitle.MediaURL;
+			#endregion
+
+			#region Viðbótarupplýsingar fyrir Subtitle
+			newSubtitle.PublishDate = DateTime.Now;
+			newSubtitle.Status = "Óklárað";
+			newSubtitle.Votes = 0;
+			#endregion
+
+			AddSubtitle(newSubtitle); 
+			SaveSubtitle();
+		}
+
+		// Fall sem eyðir út Subtitle í gagnagrunni.
+		public void RemoveSubtitle(Subtitle s)
+		{
+			db.Subtitles.Remove(s);
 		}
 
 		// Fall sem vistar Subtitles í gagnagrunni.
@@ -82,51 +119,15 @@ namespace Stjornutextar.Repositories
 			}
 		}
 
-		public void CreateSubtitle(SaveSubtitleViewModel sVM)
+		// Fall sem sækir Subtitle eftir Id-i hans eða null ef hann er ekki til.
+		public Subtitle GetSubtitleById(int? id)
 		{
-			Subtitle newSubtitle = new Subtitle();
+			var getSubtitleById = (from s in db.Subtitles
+								   where s.ID == id
+								   select s).SingleOrDefault();
 
-			#region tekið úr ViewModel yfir í Subtitle
-			newSubtitle.Title = sVM.Subtitle.Title;
-			newSubtitle.Language = sVM.Subtitle.Language;
-			newSubtitle.Category = sVM.Subtitle.Category;
-			newSubtitle.MediaURL = sVM.Subtitle.MediaURL;
-			#endregion
-
-			#region Viðbótarupplýsingar fyrir Subtitle
-			newSubtitle.PublishDate = DateTime.Now;
-			newSubtitle.Status = "Óklárað";
-			newSubtitle.Votes = 0;
-			#endregion
-
-			AddSubtitle(newSubtitle); 
-			SaveSubtitle();
+			return getSubtitleById;
 		}
 
-		// Fall sem eyðir út Subtitle í gagnagrunni.
-		public void RemoveSubtitle(Subtitle s)
-		{
-			db.Subtitles.Remove(s);
-		}
-
-		// Fall sem sækir lista af flokkum og tungumálum og setur í SaveSubtitleViewModel
-		public SaveSubtitleViewModel PopulateSaveSubtitleViewModel(SaveSubtitleViewModel subtitleVM)
-		{
-			subtitleVM.Categories = new List<Category>();
-			
-			foreach (var c in db.Categories)
-			{
-				subtitleVM.Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
-			}
-
-			subtitleVM.Languages = new List<Language>();
-
-			foreach (var l in db.Languages)
-			{
-				subtitleVM.Languages.Add(new Language { LanguageName = l.LanguageName, ID = l.ID });
-			}
-
-			return subtitleVM;
-		}
 	}
 }
