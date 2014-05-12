@@ -163,7 +163,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SubtitleController.cs" />
-    <Compile Include="DAL\AppContext.cs" />
     <Compile Include="DAL\AppInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -6,9 +6,9 @@ using System.Web;
 
 namespace Stjornutextar.DAL
 {
-	public class AppInitializer : System.Data.Entity.CreateDatabaseIfNotExists<AppContext>
+	public class AppInitializer : System.Data.Entity.CreateDatabaseIfNotExists<ApplicationDbContext>
 	{
-		protected override void Seed(AppContext context)
+		protected override void Seed(ApplicationDbContext context)
 		{
 			// Búum til lista af NewsItem klösum og frumstillum þá með titli, texta, flokk og dagsetningu fréttar, til þess að hafa fylla inn í gagnagrunnstöfluna í upphafi.
 			var titles = new List<Title>
