@@ -168,6 +168,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405121349413_Subtitle.cs" />
+    <Compile Include="Migrations\201405121349413_Subtitle.Designer.cs">
+      <DependentUpon>201405121349413_Subtitle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405121455245_Subtitle1.cs" />
+    <Compile Include="Migrations\201405121455245_Subtitle1.Designer.cs">
+      <DependentUpon>201405121455245_Subtitle1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -234,6 +242,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="SubtitleFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -241,6 +250,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201405121349413_Subtitle.resx">
+      <DependentUpon>201405121349413_Subtitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405121455245_Subtitle1.resx">
+      <DependentUpon>201405121455245_Subtitle1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
