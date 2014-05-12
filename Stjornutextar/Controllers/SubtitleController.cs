@@ -7,8 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Stjornutextar.Models;
-using Stjornutextar.DAL;
 using Stjornutextar.Repositories;
+using System.IO;
 
 namespace Stjornutextar.Controllers
 {
@@ -62,6 +62,10 @@ namespace Stjornutextar.Controllers
 			#region stilla til tilvikið af subtitle áður en því er post-að
 			subtitle.PublishDate = DateTime.Now;
 			subtitle.Status = "Óklárað";
+
+			var fileName = Path.GetFileName(subtitle.SubFile.FileName);
+			var path = Path.Combine(Server.MapPath("~SubtitleFiles"), fileName);
+			subtitle.SubFile.SaveAs(path);
 			#endregion
 
 			if (ModelState.IsValid)

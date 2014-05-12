@@ -1,5 +1,4 @@
-﻿using Stjornutextar.DAL;
-using Stjornutextar.Models;
+﻿using Stjornutextar.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace Stjornutextar.Repositories
 		}
 
 		// Búum til tilvik af gagnagrunninum okkar til að vinna með.
-		AppContext db = new AppContext();
+		ApplicationDbContext db = new ApplicationDbContext();
 
 		// Fall sem sækir alla skjátexta í gagnagrunn og skilar 10 nýjustu
 		public IEnumerable<Subtitle> GetFirst10Subtitles()
