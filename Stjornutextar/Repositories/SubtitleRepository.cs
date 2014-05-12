@@ -109,48 +109,6 @@ namespace Stjornutextar.Repositories
 			db.Subtitles.Remove(s);
 		}
 
-		// Fall sem skilar lista af flokkum úr gagnagrunni.
-		public List<SelectListItem> FeedCategoryList()
-		{
-			List<SelectListItem> categories = new List<SelectListItem>();
-			
-			foreach (var c in db.Categories)
-			{
-				string tempValue = Convert.ToString(c.ID);
-				categories.Add(new SelectListItem { Text = c.CategoryName, Value = tempValue });
-			}
-
-			return categories;
-		}
-
-		// Fall sem skilar lista af flokkum úr gagnagrunni.
-		public List<SelectListItem> FeedLanguageList()
-		{
-			List<SelectListItem> languages = new List<SelectListItem>();
-
-			foreach (var l in db.Languages)
-			{
-				string tempValue = Convert.ToString(l.ID);
-				languages.Add(new SelectListItem { Text = l.LanguageName, Value = tempValue });
-			}
-
-			return languages;
-		}
-
-		// Fall sem skilar lista af titlum úr gagnagrunni.
-		public List<SelectListItem> FeedTitleList()
-		{
-			List<SelectListItem> titles = new List<SelectListItem>();
-
-			foreach (var t in db.Titles)
-			{
-				string tempValue = Convert.ToString(t.ID);
-				titles.Add(new SelectListItem { Text = t.TitleName, Value = tempValue });
-			}
-
-			return titles;
-		}
-
 		// Fall sem sækir lista af flokkum og tungumálum og setur í SaveSubtitleViewModel
 		public SaveSubtitleViewModel PopulateSaveSubtitleViewModel(SaveSubtitleViewModel subtitleVM)
 		{
