@@ -65,16 +65,20 @@ namespace Stjornutextar.Repositories
 
 			if (subtitleByID != null)
 			{
-				subtitleByID.CategoryID = s.CategoryID;
-				subtitleByID.LanguageID = s.LanguageID;
 				subtitleByID.MediaURL = s.MediaURL;
 				subtitleByID.PublishDate = s.PublishDate;
 				subtitleByID.Status = s.Status;
 				subtitleByID.SubFile = s.SubFile;
 				subtitleByID.Title = s.Title;
 				subtitleByID.Votes = s.Votes;
+				subtitleByID.Language = s.Language;
+				subtitleByID.Category = s.Category;
 				subtitleByID.CommentID = s.CommentID;
-				subtitleByID.TitleID = s.TitleID; 
+				subtitleByID.TitleID = s.TitleID;
+				subtitleByID.CategoryID = s.CategoryID;
+				subtitleByID.LanguageID = s.LanguageID;
+
+				db.SaveChanges();
 			}
 		}
 

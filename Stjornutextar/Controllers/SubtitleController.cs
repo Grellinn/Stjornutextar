@@ -53,7 +53,7 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "Title,Category,Language,MediaURL,SubFile,Status")] Subtitle subtitle)
+		public ActionResult Create([Bind(Include = "Title,Category,Language,MediaURL")] Subtitle subtitle)
         {
 			ViewBag.Categories = repo.FeedCategoryList();
 			ViewBag.Languages = repo.FeedLanguageList();
@@ -77,7 +77,11 @@ namespace Stjornutextar.Controllers
         // GET: /Subtitle/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+			ViewBag.Categories = repo.FeedCategoryList();
+			ViewBag.Languages = repo.FeedLanguageList();
+			ViewBag.Titles = repo.FeedTitleList();
+			
+			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -94,9 +98,13 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,Title,Category,Language,PublishDate,MediaURL,SubtitleFileURL,Status,Votes")] Subtitle subtitle)
+		public ActionResult Edit([Bind(Include = "Title,Category,Language,MediaURL")] Subtitle subtitle)
         {
-            if (ModelState.IsValid)
+			ViewBag.Categories = repo.FeedCategoryList();
+			ViewBag.Languages = repo.FeedLanguageList();
+			ViewBag.Titles = repo.FeedTitleList();
+			
+			if (ModelState.IsValid)
             {
 				repo.UpdateSubtitle(subtitle);
                 return RedirectToAction("Index");
