@@ -15,10 +15,10 @@ namespace Stjornutextar.Models
 		public string Language { get; set; }
 		public string Status { get; set; }
 		public string MediaURL { get; set; }
-		[NotMapped]
-		public HttpPostedFileBase SubFile { get; set; }
 		public DateTime PublishDate { get; set; }
 		public int Votes { get; set; }
+		[NotMapped]
+		public HttpPostedFileBase SubFile { get; set; }
 
 		#region Foreign Keys
 		public int CategoryID { get; set; }

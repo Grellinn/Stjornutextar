@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Stjornutextar.Models;
 using Stjornutextar.Repositories;
 using System.IO;
+using Stjornutextar.ViewModels;
 
 namespace Stjornutextar.Controllers
 {
@@ -53,29 +54,19 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "Title,Category,Language,MediaURL")] Subtitle subtitle)
+		public ActionResult Create([Bind(Include = "Title,Category,Language,MediaURL")] SaveSubtitleViewModel subtitleVM)
         {
-			ViewBag.Categories = repo.FeedCategoryList();
-			ViewBag.Languages = repo.FeedLanguageList();
-			ViewBag.Titles = repo.FeedTitleList();
-
-			#region stilla til tilvikið af subtitle áður en því er post-að
-			subtitle.PublishDate = DateTime.Now;
-			subtitle.Status = "Óklárað";
-
-			var fileName = Path.GetFileName(subtitle.SubFile.FileName);
-			var path = Path.Combine(Server.MapPath("~SubtitleFiles"), fileName);
-			subtitle.SubFile.SaveAs(path);
-			#endregion
+			subtitleVM.Categories = repo.FeedCategoryList();
+			subtitleVM.Languages = repo.FeedLanguageList();
+			subtitleVM.Titles = repo.FeedTitleList();
 
 			if (ModelState.IsValid)
             {
-				repo.AddSubtitle(subtitle);
-				repo.SaveSubtitle();
+				repo.CreateSubtitle(subtitleVM);
                 return RedirectToAction("Index");
             }
 
-           return View(subtitle);
+           return View(subtitleVM);
         }
 		
         // GET: /Subtitle/Edit/5

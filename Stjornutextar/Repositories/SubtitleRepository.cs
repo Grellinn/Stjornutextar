@@ -1,4 +1,5 @@
 ﻿using Stjornutextar.Models;
+using Stjornutextar.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,6 +80,27 @@ namespace Stjornutextar.Repositories
 
 				db.SaveChanges();
 			}
+		}
+
+		public void CreateSubtitle(SaveSubtitleViewModel sVM)
+		{
+			Subtitle newSubtitle = new Subtitle();
+
+			#region tekið úr ViewModel yfir í Subtitle
+			newSubtitle.Title = sVM.Title;
+			newSubtitle.Language = sVM.Language;
+			newSubtitle.Category = sVM.Category;
+			newSubtitle.MediaURL = sVM.MediaUrl;
+			#endregion
+
+			#region Viðbótarupplýsingar fyrir Subtitle
+			newSubtitle.PublishDate = DateTime.Now;
+			newSubtitle.Status = "Óklárað";
+			newSubtitle.Votes = 0;
+			#endregion
+
+			AddSubtitle(newSubtitle); 
+			SaveSubtitle();
 		}
 
 		// Fall sem eyðir út Subtitle í gagnagrunni.
