@@ -41,9 +41,10 @@ namespace Stjornutextar.Controllers
         // GET: /Subtitle/Create
         public ActionResult Create()
         {
-			List<SelectListItem> categories = repo.FeedCategoryList();
-
-			ViewData["Categories"] = categories;
+			//List<SelectListItem> categories = repo.FeedCategoryList();
+			ViewBag.Categories = repo.FeedCategoryList();
+			ViewBag.Languages = repo.FeedLanguageList();
+			//ViewData["Categories"] = categories;
 			
 			return View();
         }
@@ -53,18 +54,19 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create( Subtitle subtitle)
+		public ActionResult Create([Bind(Include = "Title,Category,Language,MediaURL,SubFile,Status")] Subtitle subtitle)
         {
-			List<SelectListItem> categories = repo.FeedCategoryList();
-			List<SelectListItem> languages = repo.FeedLanguageList();
+			//List<SelectListItem> categories = repo.FeedCategoryList();
+			//List<SelectListItem> languages = repo.FeedLanguageList();
 
-			ViewBag.Categories = categories;
-			ViewBag.Languages = languages;
-			
+			ViewBag.Categories = repo.FeedCategoryList();
+			ViewBag.Languages = repo.FeedLanguageList();
+
+			subtitle.PublishDate = DateTime.Now;
+			repo.Neutralize(subtitle);
+			var errors = ModelState.Values.SelectMany(v => v.Errors);
 			if (ModelState.IsValid)
             {
-				subtitle.PublishDate = DateTime.Now;
-			
 				repo.AddSubtitle(subtitle);
 				repo.SaveSubtitle();
                 return RedirectToAction("Index");

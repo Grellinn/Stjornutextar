@@ -111,5 +111,18 @@ namespace Stjornutextar.Repositories
 
 			return languages;
 		}
+
+		// Fall sem gefur breytum í Subtitle gildi
+		public Subtitle Neutralize(Subtitle s)
+		{
+			s.CategoryID = 1;
+			s.CommentID = 1;
+			s.LanguageID = 1;
+			s.PublishDate = DateTime.Now;
+			s.TitleID = 1;
+			s.Votes = 1;
+
+			return s;
+		}
 	}
 }
