@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Stjornutextar.DAL
 {
-	public class AppInitializer : System.Data.Entity.DropCreateDatabaseAlways<AppContext>
+	public class AppInitializer : System.Data.Entity.CreateDatabaseIfNotExists<AppContext>
 	{
 		protected override void Seed(AppContext context)
 		{

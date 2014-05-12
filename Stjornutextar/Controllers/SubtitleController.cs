@@ -41,10 +41,9 @@ namespace Stjornutextar.Controllers
         // GET: /Subtitle/Create
         public ActionResult Create()
         {
-			//List<SelectListItem> categories = repo.FeedCategoryList();
 			ViewBag.Categories = repo.FeedCategoryList();
 			ViewBag.Languages = repo.FeedLanguageList();
-			//ViewData["Categories"] = categories;
+			ViewBag.Titles = repo.FeedTitleList();
 			
 			return View();
         }
@@ -56,15 +55,15 @@ namespace Stjornutextar.Controllers
         [ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "Title,Category,Language,MediaURL,SubFile,Status")] Subtitle subtitle)
         {
-			//List<SelectListItem> categories = repo.FeedCategoryList();
-			//List<SelectListItem> languages = repo.FeedLanguageList();
-
 			ViewBag.Categories = repo.FeedCategoryList();
 			ViewBag.Languages = repo.FeedLanguageList();
+			ViewBag.Titles = repo.FeedTitleList();
 
+			#region stilla til tilvikið af subtitle áður en því er post-að
 			subtitle.PublishDate = DateTime.Now;
-			repo.Neutralize(subtitle);
-			var errors = ModelState.Values.SelectMany(v => v.Errors);
+			subtitle.Status = "Óklárað";
+			#endregion
+
 			if (ModelState.IsValid)
             {
 				repo.AddSubtitle(subtitle);

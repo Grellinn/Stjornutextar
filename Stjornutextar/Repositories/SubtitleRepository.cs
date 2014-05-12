@@ -112,17 +112,18 @@ namespace Stjornutextar.Repositories
 			return languages;
 		}
 
-		// Fall sem gefur breytum í Subtitle gildi
-		public Subtitle Neutralize(Subtitle s)
+		// Fall sem skilar lista af titlum úr gagnagrunni.
+		public List<SelectListItem> FeedTitleList()
 		{
-			s.CategoryID = 1;
-			s.CommentID = 1;
-			s.LanguageID = 1;
-			s.PublishDate = DateTime.Now;
-			s.TitleID = 1;
-			s.Votes = 1;
+			List<SelectListItem> titles = new List<SelectListItem>();
 
-			return s;
+			foreach (var t in db.Titles)
+			{
+				string tempValue = Convert.ToString(t.ID);
+				titles.Add(new SelectListItem { Text = t.TitleName, Value = tempValue });
+			}
+
+			return titles;
 		}
 	}
 }

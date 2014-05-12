@@ -59,16 +59,10 @@
             @Html.DisplayFor(modelItem => item.PublishDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoryID)
+            @Html.DisplayFor(modelItem => item.Category)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LanguageID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CommentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TitleID)
+            @Html.DisplayFor(modelItem => item.Language)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
