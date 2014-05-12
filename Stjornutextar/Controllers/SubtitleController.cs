@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Stjornutextar.Models;
-using Stjornutextar.DAL;
 using Stjornutextar.Repositories;
 using System.IO;
 

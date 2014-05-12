@@ -1,5 +1,4 @@
-﻿using Stjornutextar.DAL;
-using Stjornutextar.Models;
+﻿using Stjornutextar.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

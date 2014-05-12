@@ -9,11 +9,11 @@ namespace Stjornutextar.Models
     {
     }
 
-	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+	public class ApplicationDbContext : DbContext
 	{
 		// Látum default constructorinn vera tengingu við AppContext reference-ið í web.config
 		public ApplicationDbContext()
-			: base("DefaultConnection")
+			: base("RuDatabase")
 		{
 		}
 
