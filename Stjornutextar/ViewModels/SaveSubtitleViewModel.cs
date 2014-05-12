@@ -18,7 +18,7 @@ namespace Stjornutextar.ViewModels
 
 		public List<SelectListItem> Categories { get; set; }
 		public List<SelectListItem> Languages { get; set; }
-		public List<SelectListItem> Titles { get; set; }
+		//public List<SelectListItem> Titles { get; set; }
 
 		//public List<Category> Categories { get; set; }
 		//public List<Language> Languages { get; set; }

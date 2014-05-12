@@ -150,5 +150,24 @@ namespace Stjornutextar.Repositories
 
 			return titles;
 		}
+
+		// Fall sem sækir lista af flokkum og tungumálum og setur í SaveSubtitleViewModel
+		public SaveSubtitleViewModel PopulateSaveSubtitleViewModel(SaveSubtitleViewModel subtitleVM)
+		{
+			//subtitleVM.Categories = FeedCategoryList();
+			//subtitleVM.Languages = FeedLanguageList();
+
+			foreach (var c in db.Categories)
+			{
+				subtitleVM.Categories.Add(new SelectListItem { Text = c.CategoryName, Value = c.CategoryName });
+			}
+
+			foreach (var l in db.Languages)
+			{
+				subtitleVM.Languages.Add(new SelectListItem { Text = l.LanguageName, Value = l.LanguageName });
+			}
+			
+			return subtitleVM;
+		}
 	}
 }

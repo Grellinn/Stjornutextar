@@ -65,12 +65,6 @@
             @Html.DisplayFor(modelItem => item.Language)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CommentID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TitleID)
-        </td>
-        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })

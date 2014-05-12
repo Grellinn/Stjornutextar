@@ -42,11 +42,13 @@ namespace Stjornutextar.Controllers
         // GET: /Subtitle/Create
         public ActionResult Create()
         {
-			ViewBag.Categories = repo.FeedCategoryList();
-			ViewBag.Languages = repo.FeedLanguageList();
-			ViewBag.Titles = repo.FeedTitleList();
-			
-			return View();
+			//ViewBag.Categories = repo.FeedCategoryList();
+			//ViewBag.Languages = repo.FeedLanguageList();
+			//ViewBag.Titles = repo.FeedTitleList();
+			SaveSubtitleViewModel subtitleVM = new SaveSubtitleViewModel();
+			repo.PopulateSaveSubtitleViewModel(subtitleVM);
+
+			return View(subtitleVM);
         }
 
         // POST: /Subtitle/Create
@@ -56,9 +58,10 @@ namespace Stjornutextar.Controllers
         [ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include = "Title,Category,Language,MediaURL")] SaveSubtitleViewModel subtitleVM)
         {
-			subtitleVM.Categories = repo.FeedCategoryList();
-			subtitleVM.Languages = repo.FeedLanguageList();
-			subtitleVM.Titles = repo.FeedTitleList();
+			//subtitleVM.Categories = repo.FeedCategoryList();
+			//subtitleVM.Languages = repo.FeedLanguageList();
+			//subtitleVM.Titles = repo.FeedTitleList();
+			//repo.PopulateSaveSubtitleViewModel(subtitleVM);
 
 			if (ModelState.IsValid)
             {
