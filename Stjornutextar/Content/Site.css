@@ -1,13 +1,24 @@
 ﻿.index_logo {
     width:40%;
-    height:250px;
+    height:300px;
     margin-left:auto;
     margin-right:auto;
-    
 }
+
 .index_logo img{
     width:90%;
     height:90%;    
+}
+.create_index{
+    border-radius:3px;
+    width:120px;
+    font-size:18px;
+    background-color: #03d100;
+    padding:5px;  
+    float:right;
+    margin-top:50px;
+    margin-right:50px; 
+   
 }
 
 body {
