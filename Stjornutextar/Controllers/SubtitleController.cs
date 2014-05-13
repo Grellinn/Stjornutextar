@@ -78,11 +78,11 @@ namespace Stjornutextar.Controllers
 				if(subtitleVM.SubFile.ContentLength != 0)
 				{
 					//SubPart newSubPart = new SubPart();
-					newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).ReadToEnd();
+					//newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).Split("\r\n");
 //					return Json(newSubtitle, JsonRequestBehavior.AllowGet);
 				}
 				#endregion
-
+				
 				repo.AddSubtitle(newSubtitle);
 				repo.SaveSubtitle();
                 return RedirectToAction("Index");
