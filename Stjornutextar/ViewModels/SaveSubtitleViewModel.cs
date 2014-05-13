@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Stjornutextar.ViewModels
 {
-	public class SaveSubtitleViewModel : Subtitle
+	public class SaveSubtitleViewModel
 	{
 		public string Title { get; set; }
 		public string Category { get; set; }
