@@ -58,11 +58,17 @@ namespace Stjornutextar.Repositories
 		public void CreateSubtitle(SaveSubtitleViewModel subtitleVM)
 		{
 			Subtitle newSubtitle = new Subtitle();
+			int tempLanguageID = Convert.ToInt32(subtitleVM.Language);
+			int tempCategoryID = Convert.ToInt32(subtitleVM.Category);
 
 			#region tekið úr ViewModel yfir í Subtitle
 			newSubtitle.Title = subtitleVM.Title;
-			newSubtitle.Language = subtitleVM.Language;
-			newSubtitle.Category = subtitleVM.Category;
+			newSubtitle.Language = (from l in db.Languages
+									where l.ID == tempLanguageID
+									select l.LanguageName).SingleOrDefault();
+			newSubtitle.Category = (from c in db.Categories
+									where c.ID == tempCategoryID
+									select c.CategoryName).SingleOrDefault();
 			newSubtitle.MediaURL = subtitleVM.MediaUrl;
 			#endregion
 
@@ -108,8 +114,12 @@ namespace Stjornutextar.Repositories
 				subtitleByID.SubFile = s.SubFile;
 				subtitleByID.Title = s.Title;
 				subtitleByID.Votes = s.Votes;
-				subtitleByID.Language = s.Language;
-				subtitleByID.Category = s.Category;
+				subtitleByID.Language = (from l in db.Languages
+										 where s.Language == Convert.ToString(l.ID)
+										 select l.LanguageName).SingleOrDefault();
+				subtitleByID.Category = (from c in db.Categories
+										 where s.Category == Convert.ToString(c.ID)
+										 select c.CategoryName).SingleOrDefault();
 				//subtitleByID.CommentID = s.CommentID;
 				//subtitleByID.TitleID = s.TitleID;
 				//subtitleByID.CategoryID = s.CategoryID;
