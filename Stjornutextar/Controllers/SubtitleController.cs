@@ -88,8 +88,6 @@ namespace Stjornutextar.Controllers
         // GET: /Subtitle/Edit/5
         public ActionResult Edit(int? id)
         {
-			
-			
 			if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -113,7 +111,7 @@ namespace Stjornutextar.Controllers
 			
 			if (ModelState.IsValid)
             {
-				repo.UpdateSubtitle(subtitle);
+				//repo.UpdateSubtitle(subtitle);
                 return RedirectToAction("Index");
             }
             return View(subtitle);

@@ -80,7 +80,12 @@ namespace Stjornutextar.Repositories
 
 			return categoryName;
 		}
-		
+
+		// Fall sem bætir Subtitle í gagnagrunn.
+		public void AddSubtitle(Subtitle s)
+		{
+			db.Subtitles.Add(s);
+		}
 		
 		// Fall sem eyðir út Subtitle í gagnagrunni.
 		public void RemoveSubtitle(Subtitle s)
@@ -92,41 +97,6 @@ namespace Stjornutextar.Repositories
 		public void SaveSubtitle()
 		{
 			db.SaveChanges();
-		}
-
-		// Fall sem bætir Subtitle í gagnagrunn.
-		public void AddSubtitle(Subtitle s)
-		{
-			db.Subtitles.Add(s);
-		}
-
-		// Fall sem uppfærir Subtitle eftir Id-inu hans í gagnagrunninum og skilar
-		// þér í Index eða NotFound View ef engu er skilað til baka
-		public void UpdateSubtitle(Subtitle s)
-		{
-			Subtitle subtitleByID = GetSubtitleById(s.ID);
-
-			if (subtitleByID != null)
-			{
-				subtitleByID.MediaURL = s.MediaURL;
-				subtitleByID.PublishDate = s.PublishDate;
-				subtitleByID.Status = s.Status;
-				subtitleByID.SubFile = s.SubFile;
-				subtitleByID.Title = s.Title;
-				subtitleByID.Votes = s.Votes;
-				subtitleByID.Language = (from l in db.Languages
-										 where s.Language == Convert.ToString(l.ID)
-										 select l.LanguageName).SingleOrDefault();
-				subtitleByID.Category = (from c in db.Categories
-										 where s.Category == Convert.ToString(c.ID)
-										 select c.CategoryName).SingleOrDefault();
-				//subtitleByID.CommentID = s.CommentID;
-				//subtitleByID.TitleID = s.TitleID;
-				//subtitleByID.CategoryID = s.CategoryID;
-				//subtitleByID.LanguageID = s.LanguageID;
-
-				db.SaveChanges();
-			}
 		}
 
 		// Fall sem sækir Subtitle eftir Id-i hans eða null ef hann er ekki til.
