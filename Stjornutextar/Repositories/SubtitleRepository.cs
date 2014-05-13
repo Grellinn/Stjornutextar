@@ -110,10 +110,10 @@ namespace Stjornutextar.Repositories
 				subtitleByID.Votes = s.Votes;
 				subtitleByID.Language = s.Language;
 				subtitleByID.Category = s.Category;
-				subtitleByID.CommentID = s.CommentID;
-				subtitleByID.TitleID = s.TitleID;
-				subtitleByID.CategoryID = s.CategoryID;
-				subtitleByID.LanguageID = s.LanguageID;
+				//subtitleByID.CommentID = s.CommentID;
+				//subtitleByID.TitleID = s.TitleID;
+				//subtitleByID.CategoryID = s.CategoryID;
+				//subtitleByID.LanguageID = s.LanguageID;
 
 				db.SaveChanges();
 			}

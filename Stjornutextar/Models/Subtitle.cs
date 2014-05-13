@@ -20,11 +20,11 @@ namespace Stjornutextar.Models
 		[NotMapped]
 		public HttpPostedFileBase SubFile { get; set; }
 
-		#region Foreign Keys
-		public int CategoryID { get; set; }
-		public int LanguageID { get; set; }
-		public int CommentID { get; set; }
-		public int TitleID { get; set; }
-		#endregion
+		//#region Foreign Keys
+		//public int CategoryID { get; set; }
+		//public int LanguageID { get; set; }
+		//public int CommentID { get; set; }
+		//public int TitleID { get; set; }
+		//#endregion
 	}
 }
