@@ -9,7 +9,7 @@ namespace Stjornutextar.Models
     {
     }
 
-	public class ApplicationDbContext : DbContext
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 	{
 		// Látum default constructorinn vera tengingu við AppContext reference-ið í web.config
 		public ApplicationDbContext()
@@ -27,6 +27,10 @@ namespace Stjornutextar.Models
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
 			modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+			modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
+			modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
+			modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
 		}
 	}
 }
