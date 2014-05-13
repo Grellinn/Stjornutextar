@@ -15,7 +15,7 @@ namespace Stjornutextar.ViewModels
 		public string Language { get; set; }
 		public string MediaUrl { get; set; }
 		public DateTime PublishDate { get; set; }
-		[NotMapped]
+		
 		public HttpPostedFileBase SubFile { get; set; }
 		//public Subtitle Subtitle = new Subtitle();
 		

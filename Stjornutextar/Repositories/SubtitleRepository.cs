@@ -29,7 +29,7 @@ namespace Stjornutextar.Repositories
 		public IEnumerable<Subtitle> GetFirst10Subtitles()
 		{
 			var first10Subtitles = (from s in db.Subtitles
-									orderby s.PublishDate ascending
+									orderby s.PublishDate descending
 									select s).Take(10);
 			
 			return first10Subtitles;

@@ -17,7 +17,7 @@ namespace Stjornutextar.Models
 		public string MediaURL { get; set; }
 		public DateTime PublishDate { get; set; }
 		public int Votes { get; set; }
-		[NotMapped]
-		public HttpPostedFileBase SubFile { get; set; }
+		
+		public string SubtitleFileText { get; set; }
 	}
 }

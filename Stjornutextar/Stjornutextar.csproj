@@ -198,6 +198,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\test.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -229,8 +230,6 @@
     <Content Include="Views\Subtitle\Details.cshtml" />
     <Content Include="Views\Subtitle\Edit.cshtml" />
     <Content Include="Views\Subtitle\Index.cshtml" />
-    <Content Include="Views\Subtitle\Partial1.cshtml" />
-    <Content Include="Views\Subtitle\Partial2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
