@@ -1,4 +1,5 @@
 ﻿using Stjornutextar.Models;
+using Stjornutextar.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,14 +35,57 @@ namespace Stjornutextar.Repositories
 			return first10Subtitles;
 		}
 
-		// Fall sem sækir Subtitles eftir Id-i hans eða null ef hann er ekki til.
-		public Subtitle GetSubtitleById(int? id)
+		// Fall sem sækir lista af flokkum og tungumálum og setur í SaveSubtitleViewModel
+		public SaveSubtitleViewModel PopulateSaveSubtitleViewModel(SaveSubtitleViewModel subtitleVM)
 		{
-			var getSubtitleById = (from s in db.Subtitles
-								   where s.ID == id
-								   select s).SingleOrDefault();
+			subtitleVM.Categories = new List<Category>();
 
-			return getSubtitleById;
+			foreach (var c in db.Categories)
+			{
+				subtitleVM.Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
+			}
+
+			subtitleVM.Languages = new List<Language>();
+
+			foreach (var l in db.Languages)
+			{
+				subtitleVM.Languages.Add(new Language { LanguageName = l.LanguageName, ID = l.ID });
+			}
+
+			return subtitleVM;
+		}
+		
+		public void CreateSubtitle(SaveSubtitleViewModel subtitleVM)
+		{
+			Subtitle newSubtitle = new Subtitle();
+			int tempLanguageID = Convert.ToInt32(subtitleVM.Language);
+			int tempCategoryID = Convert.ToInt32(subtitleVM.Category);
+
+			#region tekið úr ViewModel yfir í Subtitle
+			newSubtitle.Title = subtitleVM.Title;
+			newSubtitle.Language = (from l in db.Languages
+									where l.ID == tempLanguageID
+									select l.LanguageName).SingleOrDefault();
+			newSubtitle.Category = (from c in db.Categories
+									where c.ID == tempCategoryID
+									select c.CategoryName).SingleOrDefault();
+			newSubtitle.MediaURL = subtitleVM.MediaUrl;
+			#endregion
+
+			#region Viðbótarupplýsingar fyrir Subtitle
+			newSubtitle.PublishDate = DateTime.Now;
+			newSubtitle.Status = "Óklárað";
+			newSubtitle.Votes = 0;
+			#endregion
+
+			AddSubtitle(newSubtitle); 
+			SaveSubtitle();
+		}
+
+		// Fall sem eyðir út Subtitle í gagnagrunni.
+		public void RemoveSubtitle(Subtitle s)
+		{
+			db.Subtitles.Remove(s);
 		}
 
 		// Fall sem vistar Subtitles í gagnagrunni.
@@ -50,7 +94,7 @@ namespace Stjornutextar.Repositories
 			db.SaveChanges();
 		}
 
-		// Fall sem býr til Subtitle í gagnagrunni.
+		// Fall sem bætir Subtitle í gagnagrunn.
 		public void AddSubtitle(Subtitle s)
 		{
 			db.Subtitles.Add(s);
@@ -70,63 +114,30 @@ namespace Stjornutextar.Repositories
 				subtitleByID.SubFile = s.SubFile;
 				subtitleByID.Title = s.Title;
 				subtitleByID.Votes = s.Votes;
-				subtitleByID.Language = s.Language;
-				subtitleByID.Category = s.Category;
-				subtitleByID.CommentID = s.CommentID;
-				subtitleByID.TitleID = s.TitleID;
-				subtitleByID.CategoryID = s.CategoryID;
-				subtitleByID.LanguageID = s.LanguageID;
+				subtitleByID.Language = (from l in db.Languages
+										 where s.Language == Convert.ToString(l.ID)
+										 select l.LanguageName).SingleOrDefault();
+				subtitleByID.Category = (from c in db.Categories
+										 where s.Category == Convert.ToString(c.ID)
+										 select c.CategoryName).SingleOrDefault();
+				//subtitleByID.CommentID = s.CommentID;
+				//subtitleByID.TitleID = s.TitleID;
+				//subtitleByID.CategoryID = s.CategoryID;
+				//subtitleByID.LanguageID = s.LanguageID;
 
 				db.SaveChanges();
 			}
 		}
 
-		// Fall sem eyðir út Subtitle í gagnagrunni.
-		public void RemoveSubtitle(Subtitle s)
+		// Fall sem sækir Subtitle eftir Id-i hans eða null ef hann er ekki til.
+		public Subtitle GetSubtitleById(int? id)
 		{
-			db.Subtitles.Remove(s);
+			var getSubtitleById = (from s in db.Subtitles
+								   where s.ID == id
+								   select s).SingleOrDefault();
+
+			return getSubtitleById;
 		}
 
-		// Fall sem skilar lista af flokkum úr gagnagrunni.
-		public List<SelectListItem> FeedCategoryList()
-		{
-			List<SelectListItem> categories = new List<SelectListItem>();
-			
-			foreach (var c in db.Categories)
-			{
-				//string tempValue = Convert.ToString(c.ID);
-				categories.Add(new SelectListItem { Text = c.CategoryName, Value = c.CategoryName });
-			}
-
-			return categories;
-		}
-
-		// Fall sem skilar lista af flokkum úr gagnagrunni.
-		public List<SelectListItem> FeedLanguageList()
-		{
-			List<SelectListItem> languages = new List<SelectListItem>();
-
-			foreach (var l in db.Languages)
-			{
-				//string tempValue = Convert.ToString(l.ID);
-				languages.Add(new SelectListItem { Text = l.LanguageName, Value = l.LanguageName });
-			}
-
-			return languages;
-		}
-
-		// Fall sem skilar lista af titlum úr gagnagrunni.
-		public List<SelectListItem> FeedTitleList()
-		{
-			List<SelectListItem> titles = new List<SelectListItem>();
-
-			foreach (var t in db.Titles)
-			{
-				//string tempValue = Convert.ToString(t.ID);
-				titles.Add(new SelectListItem { Text = t.TitleName, Value = t.TitleName });
-			}
-
-			return titles;
-		}
 	}
 }

@@ -11,6 +11,7 @@ namespace Stjornutextar.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            ContextKey = "Stjornutextar.Models.ApplicationDbContext";
         }
 
         protected override void Seed(Stjornutextar.Models.ApplicationDbContext context)
@@ -27,7 +28,6 @@ namespace Stjornutextar.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
 			context.Languages.AddOrUpdate(
 				new Language { LanguageName = "Íslenska" },
 				new Language { LanguageName = "Enska" },
