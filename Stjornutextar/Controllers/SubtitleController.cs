@@ -57,10 +57,28 @@ namespace Stjornutextar.Controllers
         //[ValidateAntiForgeryToken]
 		public ActionResult Create(SaveSubtitleViewModel subtitleVM)
         {
-			
 			if (ModelState.IsValid)
             {
-				repo.CreateSubtitle(subtitleVM);
+				int tempLanguageID = Convert.ToInt32(subtitleVM.Language);
+				int tempCategoryID = Convert.ToInt32(subtitleVM.Category);
+
+				Subtitle newSubtitle = new Subtitle();
+
+				#region tekið úr ViewModel yfir í Subtitle
+				newSubtitle.Title = subtitleVM.Title;
+				newSubtitle.Language = repo.GetLanguageName(tempLanguageID);
+				newSubtitle.Category = repo.GetCategoryName(tempCategoryID);
+				newSubtitle.MediaURL = subtitleVM.MediaUrl;
+				#endregion
+
+				#region Viðbótarupplýsingar fyrir Subtitle
+				newSubtitle.PublishDate = DateTime.Now;
+				newSubtitle.Status = "Óklárað";
+				newSubtitle.Votes = 0;
+				#endregion
+
+				repo.AddSubtitle(newSubtitle);
+				repo.SaveSubtitle();
                 return RedirectToAction("Index");
             }
 

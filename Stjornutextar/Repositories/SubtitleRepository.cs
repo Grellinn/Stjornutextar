@@ -61,33 +61,27 @@ namespace Stjornutextar.Repositories
 			return Languages;
 		}
 
-		public void CreateSubtitle(SaveSubtitleViewModel subtitleVM)
+		// Fall sem sækir nafn á tungumáli út frá Id
+		public string GetLanguageName(int id)
 		{
-			Subtitle newSubtitle = new Subtitle();
-			int tempLanguageID = Convert.ToInt32(subtitleVM.Language);
-			int tempCategoryID = Convert.ToInt32(subtitleVM.Category);
+			string languageName = (from l in db.Languages
+								  where id == l.ID
+								  select l.LanguageName).SingleOrDefault();
 
-			#region tekið úr ViewModel yfir í Subtitle
-			newSubtitle.Title = subtitleVM.Title;
-			newSubtitle.Language = (from l in db.Languages
-									where l.ID == tempLanguageID
-									select l.LanguageName).SingleOrDefault();
-			newSubtitle.Category = (from c in db.Categories
-									where c.ID == tempCategoryID
-									select c.CategoryName).SingleOrDefault();
-			newSubtitle.MediaURL = subtitleVM.MediaUrl;
-			#endregion
-
-			#region Viðbótarupplýsingar fyrir Subtitle
-			newSubtitle.PublishDate = DateTime.Now;
-			newSubtitle.Status = "Óklárað";
-			newSubtitle.Votes = 0;
-			#endregion
-
-			AddSubtitle(newSubtitle); 
-			SaveSubtitle();
+			return languageName;
 		}
 
+		// Fall sem sækir nafn á flokk út frá Id
+		public string GetCategoryName(int id)
+		{
+			string categoryName = (from c in db.Categories
+								   where id == c.ID
+								   select c.CategoryName).SingleOrDefault();
+
+			return categoryName;
+		}
+		
+		
 		// Fall sem eyðir út Subtitle í gagnagrunni.
 		public void RemoveSubtitle(Subtitle s)
 		{

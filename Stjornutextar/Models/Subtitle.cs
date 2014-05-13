@@ -19,12 +19,5 @@ namespace Stjornutextar.Models
 		public int Votes { get; set; }
 		[NotMapped]
 		public HttpPostedFileBase SubFile { get; set; }
-
-		//#region Foreign Keys
-		//public int CategoryID { get; set; }
-		//public int LanguageID { get; set; }
-		//public int CommentID { get; set; }
-		//public int TitleID { get; set; }
-		//#endregion
 	}
 }
