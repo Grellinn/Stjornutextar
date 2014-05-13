@@ -35,26 +35,32 @@ namespace Stjornutextar.Repositories
 			return first10Subtitles;
 		}
 
-		// Fall sem sækir lista af flokkum og tungumálum og setur í SaveSubtitleViewModel
-		public SaveSubtitleViewModel PopulateSaveSubtitleViewModel(SaveSubtitleViewModel subtitleVM)
+		// Fall sem tekur alla flokka úr gagnagrunni og vistar í Categories lista
+		public List<Category> PopulateCategories()
 		{
-			subtitleVM.Categories = new List<Category>();
+			List<Category> Categories = new List<Category>();
 
 			foreach (var c in db.Categories)
 			{
-				subtitleVM.Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
+				Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
 			}
-
-			subtitleVM.Languages = new List<Language>();
-
-			foreach (var l in db.Languages)
-			{
-				subtitleVM.Languages.Add(new Language { LanguageName = l.LanguageName, ID = l.ID });
-			}
-
-			return subtitleVM;
+			
+			return Categories;
 		}
 		
+		// Fall sem tekur öll tungumál úr gagnagrunni og vistar í Languages lista
+		public List<Language> PopulateLanguages()
+		{
+			List<Language> Languages = new List<Language>();
+			
+			foreach (var l in db.Languages)
+			{
+				Languages.Add(new Language { LanguageName = l.LanguageName, ID = l.ID });
+			}
+			
+			return Languages;
+		}
+
 		public void CreateSubtitle(SaveSubtitleViewModel subtitleVM)
 		{
 			Subtitle newSubtitle = new Subtitle();

@@ -43,7 +43,9 @@ namespace Stjornutextar.Controllers
         public ActionResult Create()
         {
 			SaveSubtitleViewModel subtitleVM = new SaveSubtitleViewModel();
-			repo.PopulateSaveSubtitleViewModel(subtitleVM);
+			
+			subtitleVM.Categories =  repo.PopulateCategories();
+			subtitleVM.Languages =  repo.PopulateLanguages();
 
 			return View(subtitleVM);
         }
