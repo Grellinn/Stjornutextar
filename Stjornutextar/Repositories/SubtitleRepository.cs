@@ -25,19 +25,6 @@ namespace Stjornutextar.Repositories
 		// Búum til tilvik af gagnagrunninum okkar til að vinna með.
 		ApplicationDbContext db = new ApplicationDbContext();
 
-		// Fall sem tekur alla flokka úr gagnagrunni og vistar í Categories lista
-		public List<Category> PopulateCategories()
-		{
-			List<Category> Categories = new List<Category>();
-
-			foreach (var c in db.Categories)
-			{
-				Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
-			}
-
-			return Categories;
-		}
-
 		// Fall sem sækir alla skjátexta í gagnagrunn og skilar 10 nýjustu
 		public IEnumerable<Subtitle> GetAllSubtitles()
 		{
@@ -54,6 +41,20 @@ namespace Stjornutextar.Repositories
 			var subByName = db.Subtitles.Where(t => t.Title.Contains(name));
 
 			return subByName;
+		}
+
+		
+		// Fall sem tekur alla flokka úr gagnagrunni og vistar í Categories lista
+		public List<Category> PopulateCategories()
+		{
+			List<Category> Categories = new List<Category>();
+
+			foreach (var c in db.Categories)
+			{
+				Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
+			}
+
+			return Categories;
 		}
 
 		// Fall sem tekur öll tungumál úr gagnagrunni og vistar í Languages lista
