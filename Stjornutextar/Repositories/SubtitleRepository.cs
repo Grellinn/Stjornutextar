@@ -31,7 +31,7 @@ namespace Stjornutextar.Repositories
 			var first10Subtitles = (from s in db.Subtitles
 									orderby s.PublishDate descending
 									select s).Take(10);
-			
+
 			return first10Subtitles;
 		}
 
@@ -44,20 +44,20 @@ namespace Stjornutextar.Repositories
 			{
 				Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
 			}
-			
+
 			return Categories;
 		}
-		
+
 		// Fall sem tekur öll tungumál úr gagnagrunni og vistar í Languages lista
 		public List<Language> PopulateLanguages()
 		{
 			List<Language> Languages = new List<Language>();
-			
+
 			foreach (var l in db.Languages)
 			{
 				Languages.Add(new Language { LanguageName = l.LanguageName, ID = l.ID });
 			}
-			
+
 			return Languages;
 		}
 
@@ -65,8 +65,8 @@ namespace Stjornutextar.Repositories
 		public string GetLanguageName(int id)
 		{
 			string languageName = (from l in db.Languages
-								  where id == l.ID
-								  select l.LanguageName).SingleOrDefault();
+								   where id == l.ID
+								   select l.LanguageName).SingleOrDefault();
 
 			return languageName;
 		}
@@ -85,12 +85,7 @@ namespace Stjornutextar.Repositories
 		public void AddSubtitle(Subtitle s)
 		{
 			db.Subtitles.Add(s);
-		}
-		
-		// Fall sem eyðir út Subtitle í gagnagrunni.
-		public void RemoveSubtitle(Subtitle s)
-		{
-			db.Subtitles.Remove(s);
+			SaveSubtitle();
 		}
 
 		// Fall sem vistar Subtitles í gagnagrunni.
@@ -109,5 +104,19 @@ namespace Stjornutextar.Repositories
 			return getSubtitleById;
 		}
 
-	}
+		// Fall sem uppfærir Subtitle í gagnagrunni.
+		public void UpdateSubtitle(Subtitle s)
+		{
+			Subtitle tempS = GetSubtitleById(s.ID);
+
+			if (tempS != null)
+			{
+				// Uppfærum Category, Language og MediaURL
+				tempS.Category = s.Category;
+				tempS.Language = s.Language;
+				tempS.MediaURL = s.MediaURL;
+				SaveSubtitle();
+			}
+		}
+	}	
 }

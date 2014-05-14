@@ -43,12 +43,13 @@ namespace Stjornutextar.Controllers
 		public ActionResult Create(SubtitleViewModel subtitleVM)
         {
 			if (ModelState.IsValid)
-            {
-				// Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
+			{
+				#region Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
 				subtitleVM.Subtitle.Category.CategoryName = repo.GetCategoryName(subtitleVM.Subtitle.Category.ID);
 				subtitleVM.Subtitle.Language.LanguageName = repo.GetLanguageName(subtitleVM.Subtitle.Language.ID);
+				#endregion
 
-				#region Viðbótarupplýsingar fyrir Subtitle
+				#region Viðbótarupplýsingar fyrir Subtitle sem kerfið setur sjálft
 				subtitleVM.Subtitle.PublishDate = DateTime.Now;
 				subtitleVM.Subtitle.Status = "Óklárað";
 				subtitleVM.Subtitle.Votes = 0;
@@ -61,7 +62,6 @@ namespace Stjornutextar.Controllers
 				#endregion
 
 				repo.AddSubtitle(subtitleVM.Subtitle);
-				repo.SaveSubtitle();
                 return RedirectToAction("Index");
             }
 
@@ -91,18 +91,21 @@ namespace Stjornutextar.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Title,Category,Language,MediaURL")] SubtitleViewModel subtitleVM)
+        //[ValidateAntiForgeryToken]
+		public ActionResult Edit(SubtitleViewModel subtitleVM)
         {
-			
-			
 			if (ModelState.IsValid)
             {
-				//repo.UpdateSubtitle(subtitle);
+				#region Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
+				subtitleVM.Subtitle.Category.CategoryName = repo.GetCategoryName(subtitleVM.Subtitle.Category.ID);
+				subtitleVM.Subtitle.Language.LanguageName = repo.GetLanguageName(subtitleVM.Subtitle.Language.ID);
+				#endregion
+			
+				repo.UpdateSubtitle(subtitleVM.Subtitle);
                 return RedirectToAction("Index");
             }
             return View(subtitleVM);
         }
-		
+		//[Bind(Include = "Title,Category,Language,MediaURL")]
     }
 }

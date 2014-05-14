@@ -6,8 +6,7 @@
 
 <h2>Edit</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "subtitleForm", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -28,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Subtitle.Category, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Subtitle.Category, new SelectList(Model.Categories, "ID", "CategoryName"))
+                @Html.DropDownListFor(model => model.Subtitle.Category.ID, new SelectList(Model.Categories, "ID", "CategoryName"))
                 @Html.ValidationMessageFor(model => model.Subtitle.Category)
             </div>
         </div>
@@ -36,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Subtitle.Language, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Subtitle.Language, new SelectList(Model.Languages, "ID", "LanguageName"))
+                @Html.DropDownListFor(model => model.Subtitle.Language.ID, new SelectList(Model.Languages, "ID", "LanguageName"))
                 @Html.ValidationMessageFor(model => model.Subtitle.Language)
             </div>
         </div>
