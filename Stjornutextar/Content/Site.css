@@ -1,23 +1,4 @@
-﻿.index_logo {
-    width:100%;
-    height:250px;
-}
-
-.index_logo img{
-    padding:20px;
-    /*width:80%;*/
-    height:80%;  
-    margin-left:auto;
-    margin-right:auto;  
-}
-.create_index{
-    border-radius:3px;
-    width:120px;
-    font-size:18px;
-    background-color: #03d100;
-    padding:5px;  
-    float:right;   
-}
+﻿
 .edit_button{
     border-radius:2px;
     background-color: #404040;
@@ -27,22 +8,26 @@
     cursor: pointer;
     text-decoration: none !important;
 }
+.create_new{
+    float:right;
+    border-radius:3px;
+    background-color:#95a5a6;    
+}
+.create_new a{
+    color:white;
+    text-decoration:none;
+        padding:10px;
+}
 .edit_button a{
     color:white;
 }
-.categories_filter{
-    width:50%;  
+.inner{
+    width: 50%;
     margin-left:auto;
     margin-right:auto;
+    margin-bottom:10px;
 }
-/*.categories_filter button{
-   border-radius:5px;
-    width:120px;
-    font-size:18px;
-    background-color: blue;
-    color:white;
-    padding:5px;     
-}*/
+
 
 body {
     padding-top: 50px;

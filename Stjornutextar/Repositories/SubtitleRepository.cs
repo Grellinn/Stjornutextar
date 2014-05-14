@@ -37,9 +37,7 @@ namespace Stjornutextar.Repositories
         //fall sem sækir alla skjátexta í gagnagrunn eftir leitarstreng
         public IEnumerable<Subtitle> GetSubtitleByName(string name)
         {
-            var title = (from s in db.Subtitles
-                                select s);
-            var subByName = title.Where(t => t.Title.Contains(name));
+            var subByName = db.Subtitles.Where(t => t.Title.Contains(name));
 
             return subByName;
         }
