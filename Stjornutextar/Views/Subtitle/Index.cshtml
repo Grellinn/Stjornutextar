@@ -7,15 +7,14 @@
 
 <div class="index_logo"><img src="~/Content/img/Logo.png" /></div>
 <div class="categories_filter">
-    <button>Kvikmyndir</button>
-    <button>Þættir</button>
-    <button>Fræðsla</button>
-    <button>Barnaefni</button>
-    
+    <button class="btn btn-default">Kvikmyndir</button>
+    <button class="btn btn-default">Þættir</button>
+    <button class="btn btn-default">Fræðsla</button>
+    <button class="btn btn-default">Barnaefni</button>
 </div>
-<p class="create_index">
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+    @Html.ActionLink("Create New", "Create", new { @class = "btn btn-link" })
+
 <table class="table">
     <tr>
         <th>

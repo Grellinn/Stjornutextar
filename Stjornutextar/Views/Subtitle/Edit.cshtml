@@ -42,52 +42,21 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubFile, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SubtitleFileText, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SubFile)
-                @Html.ValidationMessageFor(model => model.SubFile)
+                @Html.EditorFor(model => model.SubtitleFileText)
+                @Html.ValidationMessageFor(model => model.SubtitleFileText)
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PublishDate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PublishDate)
+                @Html.DisplayFor(model => model.PublishDate)
                 @Html.ValidationMessageFor(model => model.PublishDate)
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryID, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CategoryID)
-                @Html.ValidationMessageFor(model => model.CategoryID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LanguageID, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LanguageID)
-                @Html.ValidationMessageFor(model => model.LanguageID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CommentID, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CommentID)
-                @Html.ValidationMessageFor(model => model.CommentID)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TitleID, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TitleID)
-                @Html.ValidationMessageFor(model => model.TitleID)
-            </div>
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

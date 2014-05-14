@@ -75,12 +75,12 @@ namespace Stjornutextar.Controllers
 				newSubtitle.PublishDate = DateTime.Now;
 				newSubtitle.Status = "Óklárað";
 				newSubtitle.Votes = 0;
-				if(subtitleVM.SubFile.ContentLength != 0)
-				{
-					//SubPart newSubPart = new SubPart();
-					//newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).Split("\r\n");
-//					return Json(newSubtitle, JsonRequestBehavior.AllowGet);
-				}
+                //if(subtitleVM.SubFile.ContentLength != 0)
+                //{
+                //    //SubPart newSubPart = new SubPart();
+                //    newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).Split("\r\n");
+                //    return Json(newSubtitle, JsonRequestBehavior.AllowGet);
+                //}
 				#endregion
 				
 				repo.AddSubtitle(newSubtitle);
