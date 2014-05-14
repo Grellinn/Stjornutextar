@@ -110,39 +110,5 @@ namespace Stjornutextar.Controllers
             return View(subtitle);
         }
 		
-        // GET: /Subtitle/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-			var subtitleByID = repo.GetSubtitleById(id);
-            if (subtitleByID == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subtitleByID);
-        }
-
-        // POST: /Subtitle/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-			var subtitleByID = repo.GetSubtitleById(id);
-			repo.RemoveSubtitle(subtitleByID);
-			repo.SaveSubtitle();
-            return RedirectToAction("Index");
-        }
-
-		//protected override void Dispose(bool disposing)
-		//{
-		//	if (disposing)
-		//	{
-		//		db.Dispose();
-		//	}
-		//	base.Dispose(disposing);
-		//}
     }
 }

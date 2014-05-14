@@ -227,8 +227,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Subtitle\Create.cshtml" />
-    <Content Include="Views\Subtitle\Delete.cshtml" />
-    <Content Include="Views\Subtitle\Details.cshtml" />
     <Content Include="Views\Subtitle\Edit.cshtml" />
     <Content Include="Views\Subtitle\Index.cshtml" />
   </ItemGroup>
