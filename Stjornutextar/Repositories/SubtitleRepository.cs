@@ -26,15 +26,23 @@ namespace Stjornutextar.Repositories
 		ApplicationDbContext db = new ApplicationDbContext();
 
 		// Fall sem sækir alla skjátexta í gagnagrunn og skilar 10 nýjustu
-		public IEnumerable<Subtitle> GetFirst10Subtitles()
+		public IEnumerable<Subtitle> GetAllSubtitles()
 		{
-			var first10Subtitles = (from s in db.Subtitles
-									orderby s.PublishDate descending
-									select s).Take(10);
+            var allSubtitles = (from s in db.Subtitles
+                                orderby s.PublishDate descending
+                                select s);
 			
-			return first10Subtitles;
+			return allSubtitles;
 		}
+        //fall sem sækir alla skjátexta í gagnagrunn eftir leitarstreng
+        public IEnumerable<Subtitle> GetSubtitleByName(string name)
+        {
+            var title = (from s in db.Subtitles
+                                select s);
+            var subByName = title.Where(t => t.Title.Contains(name));
 
+            return subByName;
+        }
 		// Fall sem tekur alla flokka úr gagnagrunni og vistar í Categories lista
 		public List<Category> PopulateCategories()
 		{

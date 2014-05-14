@@ -19,9 +19,19 @@ namespace Stjornutextar.Controllers
 		SubtitleRepository repo = new SubtitleRepository();
 
         // GET: /Subtitle/
-        public ActionResult Index()
+        public ActionResult Index(string name)
         {
-            return View(repo.GetFirst10Subtitles());
+            string searchString = name;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                return View(repo.GetSubtitleByName(searchString));
+            }
+            else
+            {
+                return View(repo.GetAllSubtitles());
+            }
+           
         }
 
         // GET: /Subtitle/Details/5
