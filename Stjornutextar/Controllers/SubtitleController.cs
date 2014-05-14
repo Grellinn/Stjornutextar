@@ -24,26 +24,11 @@ namespace Stjornutextar.Controllers
             return View(repo.GetFirst10Subtitles());
         }
 
-        // GET: /Subtitle/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-			var getSubtitleById = repo.GetSubtitleById(id);
-            if (getSubtitleById == null)
-            {
-                return HttpNotFound();
-            }
-            return View(getSubtitleById);
-        }
-
         // GET: /Subtitle/Create
         public ActionResult Create()
         {
-			SaveSubtitleViewModel subtitleVM = new SaveSubtitleViewModel();
-			
+			SubtitleViewModel subtitleVM = new SubtitleViewModel();
+
 			subtitleVM.Categories =  repo.PopulateCategories();
 			subtitleVM.Languages =  repo.PopulateLanguages();
 
@@ -55,32 +40,34 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-		public ActionResult Create(SaveSubtitleViewModel subtitleVM)
+		public ActionResult Create(SubtitleViewModel subtitleVM)
         {
 			if (ModelState.IsValid)
             {
-				int tempLanguageID = Convert.ToInt32(subtitleVM.Language);
-				int tempCategoryID = Convert.ToInt32(subtitleVM.Category);
+				// Create formið skilar tölu fyrir value sem streng þegar Language og Category er valið
+				// geymum hérna temp*ID til þess að geta kallað í repo og fengið nafnið inn í breyturnar
+				int tempLanguageID = Convert.ToInt32(subtitleVM.Subtitle.Language);
+				int tempCategoryID = Convert.ToInt32(subtitleVM.Subtitle.Category);
 
 				Subtitle newSubtitle = new Subtitle();
 
 				#region tekið úr ViewModel yfir í Subtitle
-				newSubtitle.Title = subtitleVM.Title;
+				newSubtitle.Title = subtitleVM.Subtitle.Title;
 				newSubtitle.Language = repo.GetLanguageName(tempLanguageID);
 				newSubtitle.Category = repo.GetCategoryName(tempCategoryID);
-				newSubtitle.MediaURL = subtitleVM.MediaUrl;
+				newSubtitle.MediaURL = subtitleVM.Subtitle.MediaURL;
 				#endregion
 
 				#region Viðbótarupplýsingar fyrir Subtitle
 				newSubtitle.PublishDate = DateTime.Now;
 				newSubtitle.Status = "Óklárað";
 				newSubtitle.Votes = 0;
-                //if(subtitleVM.SubFile.ContentLength != 0)
-                //{
-                //    //SubPart newSubPart = new SubPart();
-                //    newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).Split("\r\n");
-                //    return Json(newSubtitle, JsonRequestBehavior.AllowGet);
-                //}
+				if(subtitleVM.UlSubtitleFile.ContentLength != 0)
+				{
+					//SubPart newSubPart = new SubPart();
+					//newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).Split("\r\n");
+//					return Json(newSubtitle, JsonRequestBehavior.AllowGet);
+				}
 				#endregion
 				
 				repo.AddSubtitle(newSubtitle);
@@ -91,13 +78,6 @@ namespace Stjornutextar.Controllers
            return View(subtitleVM);
         }
 
-		//[HttpPost]
-		//public ActionResult TestFile(HttpPostedFileBase file)
-		//{
-		//	string result = new StreamReader(file.InputStream).ReadToEnd();
-		//	return View();
-		//}
-		
         // GET: /Subtitle/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -130,39 +110,5 @@ namespace Stjornutextar.Controllers
             return View(subtitle);
         }
 		
-        // GET: /Subtitle/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-			var subtitleByID = repo.GetSubtitleById(id);
-            if (subtitleByID == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subtitleByID);
-        }
-
-        // POST: /Subtitle/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-			var subtitleByID = repo.GetSubtitleById(id);
-			repo.RemoveSubtitle(subtitleByID);
-			repo.SaveSubtitle();
-            return RedirectToAction("Index");
-        }
-
-		//protected override void Dispose(bool disposing)
-		//{
-		//	if (disposing)
-		//	{
-		//		db.Dispose();
-		//	}
-		//	base.Dispose(disposing);
-		//}
     }
 }
