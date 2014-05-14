@@ -48,6 +48,24 @@ namespace Stjornutextar.Repositories
 			return Categories;
 		}
 
+		// Fall sem sækir alla skjátexta í gagnagrunn og skilar 10 nýjustu
+		public IEnumerable<Subtitle> GetAllSubtitles()
+		{
+			var allSubtitles = (from s in db.Subtitles
+								orderby s.PublishDate descending
+								select s);
+
+			return allSubtitles;
+		}
+
+		//fall sem sækir alla skjátexta í gagnagrunn eftir leitarstreng
+		public IEnumerable<Subtitle> GetSubtitleByName(string name)
+		{
+			var subByName = db.Subtitles.Where(t => t.Title.Contains(name));
+
+			return subByName;
+		}
+
 		// Fall sem tekur öll tungumál úr gagnagrunni og vistar í Languages lista
 		public List<Language> PopulateLanguages()
 		{
