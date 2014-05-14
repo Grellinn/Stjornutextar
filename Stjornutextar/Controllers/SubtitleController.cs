@@ -44,24 +44,14 @@ namespace Stjornutextar.Controllers
         {
 			if (ModelState.IsValid)
             {
-				// Create formið skilar tölu fyrir value sem streng þegar Language og Category er valið
-				// geymum hérna temp*ID til þess að geta kallað í repo og fengið nafnið inn í breyturnar
-				int tempLanguageID = Convert.ToInt32(subtitleVM.Subtitle.Language);
-				int tempCategoryID = Convert.ToInt32(subtitleVM.Subtitle.Category);
-
-				Subtitle newSubtitle = new Subtitle();
-
-				#region tekið úr ViewModel yfir í Subtitle
-				newSubtitle.Title = subtitleVM.Subtitle.Title;
-				newSubtitle.Language = repo.GetLanguageName(tempLanguageID);
-				newSubtitle.Category = repo.GetCategoryName(tempCategoryID);
-				newSubtitle.MediaURL = subtitleVM.Subtitle.MediaURL;
-				#endregion
+				// Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
+				subtitleVM.Subtitle.Category.CategoryName = repo.GetCategoryName(subtitleVM.Subtitle.Category.ID);
+				subtitleVM.Subtitle.Language.LanguageName = repo.GetLanguageName(subtitleVM.Subtitle.Language.ID);
 
 				#region Viðbótarupplýsingar fyrir Subtitle
-				newSubtitle.PublishDate = DateTime.Now;
-				newSubtitle.Status = "Óklárað";
-				newSubtitle.Votes = 0;
+				subtitleVM.Subtitle.PublishDate = DateTime.Now;
+				subtitleVM.Subtitle.Status = "Óklárað";
+				subtitleVM.Subtitle.Votes = 0;
 				if(subtitleVM.UlSubtitleFile.ContentLength != 0)
 				{
 					//SubPart newSubPart = new SubPart();
@@ -69,8 +59,8 @@ namespace Stjornutextar.Controllers
 //					return Json(newSubtitle, JsonRequestBehavior.AllowGet);
 				}
 				#endregion
-				
-				repo.AddSubtitle(newSubtitle);
+
+				repo.AddSubtitle(subtitleVM.Subtitle);
 				repo.SaveSubtitle();
                 return RedirectToAction("Index");
             }
@@ -85,12 +75,16 @@ namespace Stjornutextar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-			var subtitleByID = repo.GetSubtitleById(id);
-            if (subtitleByID == null)
+			SubtitleViewModel subtitleVM = new SubtitleViewModel();
+			subtitleVM.Subtitle = repo.GetSubtitleById(id);
+			subtitleVM.Categories = repo.PopulateCategories();
+			subtitleVM.Languages = repo.PopulateLanguages();			
+
+            if (subtitleVM.Subtitle == null)
             {
                 return HttpNotFound();
             }
-            return View(subtitleByID);
+            return View(subtitleVM);
         }
 
         // POST: /Subtitle/Edit/5
@@ -98,7 +92,7 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Title,Category,Language,MediaURL")] Subtitle subtitle)
+		public ActionResult Edit([Bind(Include = "Title,Category,Language,MediaURL")] SubtitleViewModel subtitleVM)
         {
 			
 			
@@ -107,7 +101,7 @@ namespace Stjornutextar.Controllers
 				//repo.UpdateSubtitle(subtitle);
                 return RedirectToAction("Index");
             }
-            return View(subtitle);
+            return View(subtitleVM);
         }
 		
     }
