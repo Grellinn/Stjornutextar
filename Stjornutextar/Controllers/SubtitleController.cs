@@ -34,26 +34,11 @@ namespace Stjornutextar.Controllers
            
         }
 
-        // GET: /Subtitle/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-			var getSubtitleById = repo.GetSubtitleById(id);
-            if (getSubtitleById == null)
-            {
-                return HttpNotFound();
-            }
-            return View(getSubtitleById);
-        }
-
         // GET: /Subtitle/Create
         public ActionResult Create()
         {
-			SaveSubtitleViewModel subtitleVM = new SaveSubtitleViewModel();
-			
+			SubtitleViewModel subtitleVM = new SubtitleViewModel();
+
 			subtitleVM.Categories =  repo.PopulateCategories();
 			subtitleVM.Languages =  repo.PopulateLanguages();
 
@@ -65,35 +50,27 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-		public ActionResult Create(SaveSubtitleViewModel subtitleVM)
+		public ActionResult Create(SubtitleViewModel subtitleVM)
         {
 			if (ModelState.IsValid)
             {
-				int tempLanguageID = Convert.ToInt32(subtitleVM.Language);
-				int tempCategoryID = Convert.ToInt32(subtitleVM.Category);
-
-				Subtitle newSubtitle = new Subtitle();
-
-				#region tekið úr ViewModel yfir í Subtitle
-				newSubtitle.Title = subtitleVM.Title;
-				newSubtitle.Language = repo.GetLanguageName(tempLanguageID);
-				newSubtitle.Category = repo.GetCategoryName(tempCategoryID);
-				newSubtitle.MediaURL = subtitleVM.MediaUrl;
-				#endregion
+				// Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
+				subtitleVM.Subtitle.Category.CategoryName = repo.GetCategoryName(subtitleVM.Subtitle.Category.ID);
+				subtitleVM.Subtitle.Language.LanguageName = repo.GetLanguageName(subtitleVM.Subtitle.Language.ID);
 
 				#region Viðbótarupplýsingar fyrir Subtitle
-				newSubtitle.PublishDate = DateTime.Now;
-				newSubtitle.Status = "Óklárað";
-				newSubtitle.Votes = 0;
-                //if(subtitleVM.SubFile.ContentLength != 0)
-                //{
-                //    //SubPart newSubPart = new SubPart();
-                //    newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).Split("\r\n");
-                //    return Json(newSubtitle, JsonRequestBehavior.AllowGet);
-                //}
+				subtitleVM.Subtitle.PublishDate = DateTime.Now;
+				subtitleVM.Subtitle.Status = "Óklárað";
+				subtitleVM.Subtitle.Votes = 0;
+				if(subtitleVM.UlSubtitleFile.ContentLength != 0)
+				{
+					//SubPart newSubPart = new SubPart();
+					//newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).Split("\r\n");
+//					return Json(newSubtitle, JsonRequestBehavior.AllowGet);
+				}
 				#endregion
-				
-				repo.AddSubtitle(newSubtitle);
+
+				repo.AddSubtitle(subtitleVM.Subtitle);
 				repo.SaveSubtitle();
                 return RedirectToAction("Index");
             }
@@ -101,13 +78,6 @@ namespace Stjornutextar.Controllers
            return View(subtitleVM);
         }
 
-		//[HttpPost]
-		//public ActionResult TestFile(HttpPostedFileBase file)
-		//{
-		//	string result = new StreamReader(file.InputStream).ReadToEnd();
-		//	return View();
-		//}
-		
         // GET: /Subtitle/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -115,12 +85,16 @@ namespace Stjornutextar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-			var subtitleByID = repo.GetSubtitleById(id);
-            if (subtitleByID == null)
+			SubtitleViewModel subtitleVM = new SubtitleViewModel();
+			subtitleVM.Subtitle = repo.GetSubtitleById(id);
+			subtitleVM.Categories = repo.PopulateCategories();
+			subtitleVM.Languages = repo.PopulateLanguages();			
+
+            if (subtitleVM.Subtitle == null)
             {
                 return HttpNotFound();
             }
-            return View(subtitleByID);
+            return View(subtitleVM);
         }
 
         // POST: /Subtitle/Edit/5
@@ -128,7 +102,7 @@ namespace Stjornutextar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Title,Category,Language,MediaURL")] Subtitle subtitle)
+		public ActionResult Edit([Bind(Include = "Title,Category,Language,MediaURL")] SubtitleViewModel subtitleVM)
         {
 			
 			
@@ -137,42 +111,8 @@ namespace Stjornutextar.Controllers
 				//repo.UpdateSubtitle(subtitle);
                 return RedirectToAction("Index");
             }
-            return View(subtitle);
+            return View(subtitleVM);
         }
 		
-        // GET: /Subtitle/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-			var subtitleByID = repo.GetSubtitleById(id);
-            if (subtitleByID == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subtitleByID);
-        }
-
-        // POST: /Subtitle/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-			var subtitleByID = repo.GetSubtitleById(id);
-			repo.RemoveSubtitle(subtitleByID);
-			repo.SaveSubtitle();
-            return RedirectToAction("Index");
-        }
-
-		//protected override void Dispose(bool disposing)
-		//{
-		//	if (disposing)
-		//	{
-		//		db.Dispose();
-		//	}
-		//	base.Dispose(disposing);
-		//}
     }
 }

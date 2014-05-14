@@ -1,4 +1,4 @@
-﻿@model Stjornutextar.ViewModels.SaveSubtitleViewModel
+﻿@model Stjornutextar.ViewModels.SubtitleViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -16,44 +16,42 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Subtitle.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Title)
-                @Html.ValidationMessageFor(model => model.Title)
+                @Html.EditorFor(model => model.Subtitle.Title)
+                @Html.ValidationMessageFor(model => model.Subtitle.Title)
             </div>
         </div>   
     
         <div class="form-group">
-            @Html.LabelFor(model => model.Category, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Subtitle.Category, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Category, new SelectList(Model.Categories, "ID", "CategoryName"))
-                @*@Html.DropDownListFor(model => model.Category, ViewBag.Categories as List<SelectListItem>)*@
-                @Html.ValidationMessageFor(model => model.Category)
+                @Html.DropDownListFor(model => model.Subtitle.Category.ID, new SelectList(Model.Categories, "ID", "CategoryName"))
+                @Html.ValidationMessageFor(model => model.Subtitle.Category)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Language, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Subtitle.Language, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Language, new SelectList(Model.Languages, "ID", "LanguageName"))
-                @*@Html.DropDownListFor(model => model.Language, ViewBag.Languages as List<SelectListItem>)*@
-                @Html.ValidationMessageFor(model => model.Language)
+                @Html.DropDownListFor(model => model.Subtitle.Language.ID, new SelectList(Model.Languages, "ID", "LanguageName"))
+                @Html.ValidationMessageFor(model => model.Subtitle.Language)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MediaUrl, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Subtitle.MediaURL, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MediaUrl)
-                @Html.ValidationMessageFor(model => model.MediaUrl)
+                @Html.EditorFor(model => model.Subtitle.MediaURL)
+                @Html.ValidationMessageFor(model => model.Subtitle.MediaURL)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SubFile, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UlSubtitleFile, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="SubFile" id="SubFile"/>
-                @Html.ValidationMessageFor(model => model.SubFile)
+                <input type="file" name="UlSubtitleFile" id="UlSubtitleFile" />
+                @Html.ValidationMessageFor(model => model.UlSubtitleFile)
             </div>
         </div>
 
