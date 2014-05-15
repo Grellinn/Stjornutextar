@@ -41,28 +41,12 @@ namespace Stjornutextar.Controllers
 
         // GET: /Subtitle/Create
         public ActionResult Create()
-        {
+		{
+			#region Búa til ViewModel og fylla inn í það flokka, tungumál og þýðingu
 			SubtitleViewModel subtitleVM = new SubtitleViewModel();
-
-			List<Category> repoCategories = repo.PopulateCategories();
-			//List<Category> Categories = new List<Category>();
-			//foreach (var category in repoCategories)
-			//{
-			//	if (Categories.Where(c => c.CategoryName == category.CategoryName).FirstOrDefault() == null)
-			//		Categories.Add(category);
-			//}
-			//subtitleVM.Categories =  Categories;
-			subtitleVM.Categories = repoCategories;
-
-			List<Language> repoLanguages = repo.PopulateLanguages();
-			//List<Language> Languages = new List<Language>();
-			//foreach (var language in repoLanguages)
-			//{
-			//	if (Languages.Where(l => l.LanguageName == language.LanguageName).FirstOrDefault() == null)
-			//		Languages.Add(language);
-			//}
-			//subtitleVM.Languages = Languages;
-			subtitleVM.Languages = repoLanguages;
+			subtitleVM.Categories = repo.PopulateCategories();
+			subtitleVM.Languages = repo.PopulateLanguages();
+			#endregion
 
 			return View(subtitleVM);
         }
@@ -76,13 +60,10 @@ namespace Stjornutextar.Controllers
         {
 			if (ModelState.IsValid)
 			{
-				//#region Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
+				#region Sækir tilvik af Category og Language og setur í ViewModel-ið
 				subtitleVM.Subtitle.Category = repo.GetCategory(subtitleVM.Subtitle.Category.ID);
 				subtitleVM.Subtitle.Language = repo.GetLanguage(subtitleVM.Subtitle.Language.ID);
-				//#endregion
-
-		
-
+				#endregion
 
 				#region Viðbótarupplýsingar fyrir Subtitle sem kerfið setur sjálft
 				subtitleVM.Subtitle.PublishDate = DateTime.Now;
@@ -105,24 +86,15 @@ namespace Stjornutextar.Controllers
 
         // GET: /Subtitle/Edit/5
         public ActionResult Edit(int id)
-        {
+		{
+			#region Búa til ViewModel og fylla inn í það flokka, tungumál og þýðingu
 			SubtitleViewModel subtitleVM = new SubtitleViewModel();
 			subtitleVM.Categories = repo.PopulateCategories();
-
-//5			List<Category> CategoriesFromDB = repo.PopulateCategories();
-			
-			//foreach (var category in CategoriesFromDB)
-			//{
-			//	if (subtitleVM.Categories.Where(a => a.CategoryName == category.CategoryName).FirstOrDefault() == null)
-			//		subtitleVM.Categories.Add(category);
-			//	else if (subtitleVM.Categories.Where(c => c.ID == category.ID) == null)
-			//		subtitleVM.Categories.Add(category);
-			//}
-
 			subtitleVM.Languages = repo.PopulateLanguages();
 			subtitleVM.Subtitle = repo.GetSubtitleById(id);
+			#endregion
 
-            if (subtitleVM.Subtitle == null)
+			if (subtitleVM.Subtitle == null)
             {
                 return HttpNotFound();
             }
@@ -138,7 +110,7 @@ namespace Stjornutextar.Controllers
         {
 			if (ModelState.IsValid)
             {
-				#region Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
+				#region Sækir tilvik af Category og Language og setur í ViewModel-ið
 				subtitleVM.Subtitle.Category = repo.GetCategory(subtitleVM.Subtitle.Category.ID);
 				subtitleVM.Subtitle.Language = repo.GetLanguage(subtitleVM.Subtitle.Language.ID);
 				#endregion
@@ -148,6 +120,5 @@ namespace Stjornutextar.Controllers
             }
             return View(subtitleVM);
         }
-		//[Bind(Include = "Title,Category,Language,MediaURL")]
     }
 }
