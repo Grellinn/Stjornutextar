@@ -22,100 +22,30 @@ namespace Stjornutextar.Controllers
             return View(repo.GetAllSubtitleParts(id));
         }
 
-		//// GET: /SubtitlePart/Details/5
-		//public ActionResult Details(int? id)
-		//{
-		//	if (id == null)
-		//	{
-		//		return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-		//	}
-		//	SubtitlePart subtitlepart = db.SubtitleParts.Find(id);
-		//	if (subtitlepart == null)
-		//	{
-		//		return HttpNotFound();
-		//	}
-		//	return View(subtitlepart);
-		//}
+		// GET: /SubtitlePart/Edit/5
+		public ActionResult Edit(int id)
+		{
+			SubtitlePart subtitlePart = repo.GetSubtitlePartById(id);
+			if (subtitlePart == null)
+			{
+				return HttpNotFound();
+			}
+			return View(subtitlePart);
+		}
 
-		//// GET: /SubtitlePart/Create
-		//public ActionResult Create()
-		//{
-		//	return View();
-		//}
-
-		//// POST: /SubtitlePart/Create
-		//// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		//// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		//[HttpPost]
-		//[ValidateAntiForgeryToken]
-		//public ActionResult Create([Bind(Include="ID,partNumber,time,text1,text2,translatedText1,translatedText2")] SubtitlePart subtitlepart)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		db.SubtitleParts.Add(subtitlepart);
-		//		db.SaveChanges();
-		//		return RedirectToAction("Index");
-		//	}
-
-		//	return View(subtitlepart);
-		//}
-
-		//// GET: /SubtitlePart/Edit/5
-		//public ActionResult Edit(int? id)
-		//{
-		//	if (id == null)
-		//	{
-		//		return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-		//	}
-		//	SubtitlePart subtitlepart = db.SubtitleParts.Find(id);
-		//	if (subtitlepart == null)
-		//	{
-		//		return HttpNotFound();
-		//	}
-		//	return View(subtitlepart);
-		//}
-
-		//// POST: /SubtitlePart/Edit/5
-		//// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-		//// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-		//[HttpPost]
-		//[ValidateAntiForgeryToken]
-		//public ActionResult Edit([Bind(Include="ID,partNumber,time,text1,text2,translatedText1,translatedText2")] SubtitlePart subtitlepart)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		db.Entry(subtitlepart).State = EntityState.Modified;
-		//		db.SaveChanges();
-		//		return RedirectToAction("Index");
-		//	}
-		//	return View(subtitlepart);
-		//}
-
-		//// GET: /SubtitlePart/Delete/5
-		//public ActionResult Delete(int? id)
-		//{
-		//	if (id == null)
-		//	{
-		//		return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-		//	}
-		//	SubtitlePart subtitlepart = db.SubtitleParts.Find(id);
-		//	if (subtitlepart == null)
-		//	{
-		//		return HttpNotFound();
-		//	}
-		//	return View(subtitlepart);
-		//}
-
-		//// POST: /SubtitlePart/Delete/5
-		//[HttpPost, ActionName("Delete")]
-		//[ValidateAntiForgeryToken]
-		//public ActionResult DeleteConfirmed(int id)
-		//{
-		//	SubtitlePart subtitlepart = db.SubtitleParts.Find(id);
-		//	db.SubtitleParts.Remove(subtitlepart);
-		//	db.SaveChanges();
-		//	return RedirectToAction("Index");
-		//}
-
+		// POST: /SubtitlePart/Edit/5
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(SubtitlePart subtitlePart)
+		{
+			if (ModelState.IsValid)
+			{
+				repo.UpdateSubtitlePart(subtitlePart);
+				return RedirectToAction("Index/" + subtitlePart.SubtitleID);
+			}
+			return View(subtitlePart);
+		}
     }
 }
