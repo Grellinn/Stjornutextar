@@ -28,12 +28,12 @@ namespace Stjornutextar.Migrations
 			//      new Person { FullName = "Rowan Miller" }
 			//    );
 			//
-			context.Languages.AddOrUpdate(
-				new Language { LanguageName = "Íslenska" },
-				new Language { LanguageName = "Enska" },
-				new Language { LanguageName = "Danska" },
-				new Language { LanguageName = "Sænska" }
-				);
+			//context.Languages.AddOrUpdate(
+			//	new Language { LanguageName = "Íslenska" },
+			//	new Language { LanguageName = "Enska" },
+			//	new Language { LanguageName = "Danska" },
+			//	new Language { LanguageName = "Sænska" }
+			//	);
 
 			//context.Titles.AddOrUpdate(
 			//	new Title { TitleName = "Dark Knight" },
@@ -44,12 +44,12 @@ namespace Stjornutextar.Migrations
 			//	new Title { TitleName = "Seinfeld" }
 			//	);
 
-			context.Categories.AddOrUpdate(
-				new Category { CategoryName = "Kvikmyndir" },
-				new Category { CategoryName = "Þættir" },
-				new Category { CategoryName = "Heimildarmyndir" },
-				new Category { CategoryName = "Barnaefni" }
-				);
+			//context.Categories.AddOrUpdate(
+			//	new Category { CategoryName = "Kvikmyndir" },
+			//	new Category { CategoryName = "Þættir" },
+			//	new Category { CategoryName = "Heimildarmyndir" },
+			//	new Category { CategoryName = "Barnaefni" }
+			//	);
 		}
 	}
 }
