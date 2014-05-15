@@ -163,6 +163,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SubtitleController.cs" />
+    <Compile Include="Controllers\SubtitlePartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -235,6 +236,11 @@
     <Content Include="Views\Subtitle\Create.cshtml" />
     <Content Include="Views\Subtitle\Edit.cshtml" />
     <Content Include="Views\Subtitle\Index.cshtml" />
+    <Content Include="Views\SubtitlePart\Create.cshtml" />
+    <Content Include="Views\SubtitlePart\Delete.cshtml" />
+    <Content Include="Views\SubtitlePart\Details.cshtml" />
+    <Content Include="Views\SubtitlePart\Edit.cshtml" />
+    <Content Include="Views\SubtitlePart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
