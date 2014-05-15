@@ -1,17 +1,16 @@
 ﻿@model Stjornutextar.ViewModels.SubtitleViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Breyta";
 }
 
-<h2>Edit</h2>
+<h2>Breyta skjátexta</h2>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "subtitleForm", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Subtitle</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Subtitle.ID)
@@ -67,14 +66,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Vista" class="btn btn-default" />
+                @Html.ActionLink("Þýða skjátexta", "index", "SubtitlePart", new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Til baka", "Index")
 </div>
 
 @section Scripts {
