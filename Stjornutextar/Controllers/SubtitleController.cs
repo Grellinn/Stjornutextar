@@ -22,14 +22,19 @@ namespace Stjornutextar.Controllers
         public ActionResult Index(string name)
         {
             string searchString = name;
+			SubtitleListViewModel subtitleLVM = new SubtitleListViewModel();
+			subtitleLVM.Categories = repo.PopulateCategories();
+			subtitleLVM.Languages = repo.PopulateLanguages();
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                return View(repo.GetSubtitleByName(searchString));
+				subtitleLVM.Subtitles = repo.GetSubtitleByName(searchString);
+				return View(subtitleLVM);
             }
             else
             {
-                return View(repo.GetAllSubtitles());
+                subtitleLVM.Subtitles = repo.GetAllSubtitles();
+				return View(subtitleLVM);
             }
            
         }
@@ -39,8 +44,23 @@ namespace Stjornutextar.Controllers
         {
 			SubtitleViewModel subtitleVM = new SubtitleViewModel();
 
-			subtitleVM.Categories =  repo.PopulateCategories();
-			subtitleVM.Languages =  repo.PopulateLanguages();
+			List<Category> repoCategories = repo.PopulateCategories();
+			List<Category> Categories = new List<Category>();
+			foreach (var category in repoCategories)
+			{
+				if (Categories.Where(c => c.CategoryName == category.CategoryName).FirstOrDefault() == null)
+					Categories.Add(category);
+			}
+			subtitleVM.Categories =  Categories;
+
+			List<Language> repoLanguages = repo.PopulateLanguages();
+			List<Language> Languages = new List<Language>();
+			foreach (var language in repoLanguages)
+			{
+				if (Languages.Where(l => l.LanguageName == language.LanguageName).FirstOrDefault() == null)
+					Languages.Add(language);
+			}
+			subtitleVM.Languages = Languages;
 
 			return View(subtitleVM);
         }
@@ -79,16 +99,23 @@ namespace Stjornutextar.Controllers
         }
 
         // GET: /Subtitle/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-			if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 			SubtitleViewModel subtitleVM = new SubtitleViewModel();
-			subtitleVM.Subtitle = repo.GetSubtitleById(id);
 			subtitleVM.Categories = repo.PopulateCategories();
-			subtitleVM.Languages = repo.PopulateLanguages();			
+
+//5			List<Category> CategoriesFromDB = repo.PopulateCategories();
+			
+			//foreach (var category in CategoriesFromDB)
+			//{
+			//	if (subtitleVM.Categories.Where(a => a.CategoryName == category.CategoryName).FirstOrDefault() == null)
+			//		subtitleVM.Categories.Add(category);
+			//	else if (subtitleVM.Categories.Where(c => c.ID == category.ID) == null)
+			//		subtitleVM.Categories.Add(category);
+			//}
+
+			subtitleVM.Languages = repo.PopulateLanguages();
+			subtitleVM.Subtitle = repo.GetSubtitleById(id);
 
             if (subtitleVM.Subtitle == null)
             {
@@ -110,7 +137,7 @@ namespace Stjornutextar.Controllers
 				subtitleVM.Subtitle.Category.CategoryName = repo.GetCategoryName(subtitleVM.Subtitle.Category.ID);
 				subtitleVM.Subtitle.Language.LanguageName = repo.GetLanguageName(subtitleVM.Subtitle.Language.ID);
 				#endregion
-			
+
 				repo.UpdateSubtitle(subtitleVM.Subtitle);
                 return RedirectToAction("Index");
             }

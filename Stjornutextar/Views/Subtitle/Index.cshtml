@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Stjornutextar.Models.Subtitle>
+﻿@model Stjornutextar.ViewModels.SubtitleListViewModel
 
 
 @{
@@ -27,62 +27,59 @@
     @Html.ActionLink("Create New", "Create")
 </div>
             
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subtitles[0].Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subtitles[0].Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subtitles[0].Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subtitles[0].MediaURL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subtitles[0].SubtitleFileText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subtitles[0].PublishDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subtitles[0].Language)
+        </th>
+        <th></th>
+    </tr>
 
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Category.CategoryName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Status)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MediaURL)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.SubtitleFileText)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.PublishDate)
-                    </th>
+    @foreach (var item in Model.Subtitles) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MediaURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubtitleFileText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishDate)
+            </td>
 
-                    <th>
-                        @Html.DisplayNameFor(model => model.Language.LanguageName)
-                    </th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model) {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MediaURL)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SubtitleFileText)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.PublishDate)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Language.LanguageName)
-                        </td>
-                        <td>
-                            <span class="btn btn-group-xs" > @Html.ActionLink("Edit", "Edit", new { id=item.ID })</span>
-                        </td>
-                    </tr>
-}
-
-            </table>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language.LanguageName)
+            </td>
+            <td>
+                <span class="btn btn-group-xs" > @Html.ActionLink("Edit", "Edit", new { id=item.ID })</span>
+            </td>
+        </tr>
+    }
+</table>

@@ -26,48 +26,45 @@ namespace Stjornutextar.Repositories
 		ApplicationDbContext db = new ApplicationDbContext();
 
 		// Fall sem sækir alla skjátexta í gagnagrunn og skilar 10 nýjustu
-		public IEnumerable<Subtitle> GetAllSubtitles()
+		public List<Subtitle> GetAllSubtitles()
 		{
-			var allSubtitles = (from s in db.Subtitles
-								orderby s.PublishDate descending
-								select s);
-
+			List<Subtitle> allSubtitles = db.Subtitles.OrderByDescending(s => s.PublishDate).ToList();
+			
 			return allSubtitles;
 		}
 
 		//fall sem sækir alla skjátexta í gagnagrunn eftir leitarstreng
-		public IEnumerable<Subtitle> GetSubtitleByName(string name)
+		public List<Subtitle> GetSubtitleByName(string name)
 		{
-			var subByName = db.Subtitles.Where(t => t.Title.Contains(name));
+			List<Subtitle> subtitleByName = db.Subtitles.Where(s => s.Title.ToLower().Contains(name.ToLower())).ToList();
 
-			return subByName;
+			return subtitleByName;
 		}
 
-		
 		// Fall sem tekur alla flokka úr gagnagrunni og vistar í Categories lista
 		public List<Category> PopulateCategories()
 		{
-			List<Category> Categories = new List<Category>();
-
-			foreach (var c in db.Categories)
+			List<Category> CatToReturn = new List<Category>();
+			
+			foreach (var category in db.Categories)
 			{
-				Categories.Add(new Category { CategoryName = c.CategoryName, ID = c.ID });
+					CatToReturn.Add(category);
 			}
 
-			return Categories;
+			return CatToReturn;
 		}
 
 		// Fall sem tekur öll tungumál úr gagnagrunni og vistar í Languages lista
 		public List<Language> PopulateLanguages()
 		{
-			List<Language> Languages = new List<Language>();
-
-			foreach (var l in db.Languages)
+			List<Language> LangToReturn = new List<Language>();
+			foreach (var language in db.Languages)
 			{
-				Languages.Add(new Language { LanguageName = l.LanguageName, ID = l.ID });
+				//if (LangToReturn.Where(a => a.ID == language.ID) == null)
+					LangToReturn.Add(language);
 			}
 
-			return Languages;
+			return LangToReturn;
 		}
 
 		// Fall sem sækir nafn á tungumáli út frá Id
@@ -104,11 +101,11 @@ namespace Stjornutextar.Repositories
 		}
 
 		// Fall sem sækir Subtitle eftir Id-i hans eða null ef hann er ekki til.
-		public Subtitle GetSubtitleById(int? id)
+		public Subtitle GetSubtitleById(int id)
 		{
-			var getSubtitleById = (from s in db.Subtitles
-								   where s.ID == id
-								   select s).SingleOrDefault();
+			Subtitle getSubtitleById = (from s in db.Subtitles
+										 where s.ID == id
+										select s).SingleOrDefault();
 
 			return getSubtitleById;
 		}

@@ -166,6 +166,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405142347156_Inheritance.cs" />
+    <Compile Include="Migrations\201405142347156_Inheritance.Designer.cs">
+      <DependentUpon>201405142347156_Inheritance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -176,6 +180,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SubtitleRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\SubtitleListViewModel.cs" />
     <Compile Include="ViewModels\SubtitleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +244,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201405142347156_Inheritance.resx">
+      <DependentUpon>201405142347156_Inheritance.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
