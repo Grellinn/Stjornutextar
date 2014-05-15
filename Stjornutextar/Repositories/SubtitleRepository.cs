@@ -44,12 +44,7 @@ namespace Stjornutextar.Repositories
 		// Fall sem tekur alla flokka úr gagnagrunni og vistar í Categories lista
 		public List<Category> PopulateCategories()
 		{
-			List<Category> CatToReturn = new List<Category>();
-			
-			foreach (var category in db.Categories)
-			{
-					CatToReturn.Add(category);
-			}
+			List<Category> CatToReturn = db.Categories.ToList();
 
 			return CatToReturn;
 		}
@@ -57,34 +52,9 @@ namespace Stjornutextar.Repositories
 		// Fall sem tekur öll tungumál úr gagnagrunni og vistar í Languages lista
 		public List<Language> PopulateLanguages()
 		{
-			List<Language> LangToReturn = new List<Language>();
-			foreach (var language in db.Languages)
-			{
-				//if (LangToReturn.Where(a => a.ID == language.ID) == null)
-					LangToReturn.Add(language);
-			}
+			List<Language> LangToReturn = db.Languages.ToList();
 
 			return LangToReturn;
-		}
-
-		// Fall sem sækir nafn á tungumáli út frá Id
-		public string GetLanguageName(int id)
-		{
-			string languageName = (from l in db.Languages
-								   where id == l.ID
-								   select l.LanguageName).SingleOrDefault();
-
-			return languageName;
-		}
-
-		// Fall sem sækir nafn á flokk út frá Id
-		public string GetCategoryName(int id)
-		{
-			string categoryName = (from c in db.Categories
-								   where id == c.ID
-								   select c.CategoryName).SingleOrDefault();
-
-			return categoryName;
 		}
 
 		// Fall sem bætir Subtitle í gagnagrunn.
@@ -103,10 +73,8 @@ namespace Stjornutextar.Repositories
 		// Fall sem sækir Subtitle eftir Id-i hans eða null ef hann er ekki til.
 		public Subtitle GetSubtitleById(int id)
 		{
-			Subtitle getSubtitleById = (from s in db.Subtitles
-										 where s.ID == id
-										select s).SingleOrDefault();
-
+			Subtitle getSubtitleById = db.Subtitles.Where(sub => sub.ID == id).SingleOrDefault();
+			
 			return getSubtitleById;
 		}
 
@@ -125,11 +93,13 @@ namespace Stjornutextar.Repositories
 			}
 		}
 
+		// Fall sem skilar tilviki af Category úr gagnagrunni út frá categoryID sem er sent inn
 		internal Category GetCategory(int categoryId)
 		{
 			return db.Categories.Where(cat => cat.ID == categoryId).FirstOrDefault();
 		}
 
+		// Fall sem skilar tilviki af Language úr gagnagrunni út frá languageID sem er sent inn
 		internal Language GetLanguage(int languageID)
 		{
 			return db.Languages.Where(lang => lang.ID == languageID).FirstOrDefault();
