@@ -4,26 +4,25 @@
 @{
     ViewBag.Title = "Stjörnutextar";
 }
+    <div class="img_container"><img src="~/Content/img/Logo.png" /></div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<div class="inner"><img src="~/Content/img/Logo.png" /></div>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-                <div class="inner">
-                    @Html.TextBox("name")
-                    <input type="submit" value="Leita að þýðingu" class="btn-group-sm" />
-                </div>
-}
-            <div class="inner">
-    <div class="btn-group">
-        <button class="btn btn-default">Kvikmyndir</button>
-        <button class="btn btn-default">Þættir</button>
-        <button class="btn btn-default">Fræðsla</button>
-        <button class="btn btn-default">Barnaefni</button>
+        <div class="textbox_container">
+            @Html.TextBox("name")
+            <input type="submit" value="Leita að þýðingu" class="btn-group-sm" />
+        </div>
+    }
+    <div class="button_container">
+        <div class="btn-group">
+            <button class="btn btn-default">Kvikmyndir</button>
+            <button class="btn btn-default">Þættir</button>
+            <button class="btn btn-default">Fræðsla</button>
+            <button class="btn btn-default">Barnaefni</button>
+        </div>
     </div>
-</div>
-<div class="create_new">
+<div class="btn btn-default" style="float:right;">
     @Html.ActionLink("Create New", "Create")
 </div>
             
@@ -78,7 +77,7 @@
                 @Html.DisplayFor(modelItem => item.Language.LanguageName)
             </td>
             <td>
-                <span class="btn btn-group-xs" > @Html.ActionLink("Edit", "Edit", new { id=item.ID })</span>
+                <span class="btn btn-group-sm"> @Html.ActionLink("Edit", "Edit", new { id=item.ID })</span>
             </td>
         </tr>
     }
