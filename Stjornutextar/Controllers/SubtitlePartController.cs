@@ -8,24 +8,32 @@ using System.Web;
 using System.Web.Mvc;
 using Stjornutextar.Models;
 using Stjornutextar.Repositories;
+using Stjornutextar.ViewModels;
 
 namespace Stjornutextar.Controllers
 {
     public class SubtitlePartController : Controller
     {
 		// Búum til tilvik af repository-inum okkar til að vinna með í gegnum föllin.
-		SubtitlePartRepository repo = new SubtitlePartRepository();
+		SubtitlePartRepository subPartRepo = new SubtitlePartRepository();
+		SubtitleRepository subRepo = new SubtitleRepository();
 
         // GET: /SubtitlePart/
         public ActionResult Index(int id)
         {
-            return View(repo.GetAllSubtitleParts(id));
+			SubtitlePartListViewModel subPartLVM = new SubtitlePartListViewModel();
+			subPartLVM.Categories = subRepo.PopulateCategories();
+			subPartLVM.Languages = subRepo.PopulateLanguages();
+			subPartLVM.Subtitle = subRepo.GetSubtitleById(id);
+			subPartLVM.SubtitleParts = subPartRepo.GetAllSubtitleParts(id);
+			
+			return View(subPartLVM);
         }
 
 		// GET: /SubtitlePart/Edit/5
 		public ActionResult Edit(int id)
 		{
-			SubtitlePart subtitlePart = repo.GetSubtitlePartById(id);
+			SubtitlePart subtitlePart = subPartRepo.GetSubtitlePartById(id);
 			if (subtitlePart == null)
 			{
 				return HttpNotFound();
@@ -42,7 +50,7 @@ namespace Stjornutextar.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				repo.UpdateSubtitlePart(subtitlePart);
+				subPartRepo.UpdateSubtitlePart(subtitlePart);
 				return RedirectToAction("Index/" + subtitlePart.SubtitleID);
 			}
 			return View(subtitlePart);

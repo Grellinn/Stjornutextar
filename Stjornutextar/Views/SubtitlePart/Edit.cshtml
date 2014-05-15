@@ -1,10 +1,10 @@
 ﻿@model Stjornutextar.Models.SubtitlePart
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Þýða skjátexta brot";
 }
 
-<h2>Edit</h2>
+<h2>Þýða Skjátexta Brot</h2>
 
 
 @using (Html.BeginForm())
@@ -12,18 +12,10 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>SubtitlePart</h4>
+        <h4>Brot númer @Model.partNumber</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.partNumber, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.partNumber)
-                @Html.ValidationMessageFor(model => model.partNumber)
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.time, new { @class = "control-label col-md-2" })
@@ -67,14 +59,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Vista" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Til baka í lista", "Index/" + @Model.SubtitleID)
 </div>
 
 @section Scripts {

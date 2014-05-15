@@ -180,6 +180,7 @@
     <Compile Include="Repositories\SubtitleRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\SubtitleListViewModel.cs" />
+    <Compile Include="ViewModels\SubtitlePartListViewModel.cs" />
     <Compile Include="ViewModels\SubtitleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

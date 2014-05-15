@@ -1,38 +1,35 @@
-﻿@model IEnumerable<Stjornutextar.Models.SubtitlePart>
+﻿@model Stjornutextar.ViewModels.SubtitlePartListViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Listi yfir öll skjátexta brot";
 }
 
-<h2>Index</h2>
+<h2>Skjátextabrot fyrir @Model.Subtitle.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.partNumber)
+            Númer
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.time)
+            Tími
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.text1)
+            Texti 1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.text2)
+            Texti 2
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.translatedText1)
+            Þýðing 1
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.translatedText2)
+            Þýðing 2
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.SubtitleParts) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.partNumber)
@@ -53,9 +50,7 @@
             @Html.DisplayFor(modelItem => item.translatedText2)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Þýða", "Edit", new { id=item.ID })
         </td>
     </tr>
 }
