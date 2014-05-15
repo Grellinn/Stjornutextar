@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stjornutextar.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,7 @@ namespace Stjornutextar.Repositories
 			}
 		}
 
-
+		// // Búum til tilvik af gagnagrunninum okkar til að vinna með.
+		ApplicationDbContext db = new ApplicationDbContext();
 	}
 }
