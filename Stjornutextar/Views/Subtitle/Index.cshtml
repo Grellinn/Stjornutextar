@@ -29,25 +29,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Subtitles[0].Category)
+            Flokkar
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Subtitles[0].Title)
+            Titill
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Subtitles[0].Status)
+            Staða
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Subtitles[0].MediaURL)
+            Hlekkur á myndband
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Subtitles[0].SubtitleFileText)
+            Sækja skrá
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Subtitles[0].PublishDate)
+            Stofnað
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Subtitles[0].Language)
+            Tungumál
+        </th>
+        <th>
+            Líka við
         </th>
         <th></th>
     </tr>
@@ -67,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.MediaURL)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.SubtitleFileText)*@
+                
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishDate)
@@ -75,6 +78,9 @@
 
             <td>
                 @Html.DisplayFor(modelItem => item.Language.LanguageName)
+            </td>
+            <td>
+
             </td>
             <td>
                 <span class="btn btn-group-sm"> @Html.ActionLink("Edit", "Edit", new { id=item.ID })</span>

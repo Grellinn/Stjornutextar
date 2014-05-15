@@ -20,7 +20,15 @@ namespace Stjornutextar.Repositories
 			}
 		}
 
-		// // Búum til tilvik af gagnagrunninum okkar til að vinna með.
+		// Búum til tilvik af gagnagrunninum okkar til að vinna með.
 		ApplicationDbContext db = new ApplicationDbContext();
+
+		// Fall sem skilar öllum skjátextapörtum úr gagnagrunni
+		public List<SubtitlePart> GetAllSubtitleParts(int id)
+		{
+			List<SubtitlePart> listOfSubtitleParts = db.SubtitleParts.Where(subPart => subPart.SubtitleID == id).ToList();
+
+			return listOfSubtitleParts;
+		}
 	}
 }

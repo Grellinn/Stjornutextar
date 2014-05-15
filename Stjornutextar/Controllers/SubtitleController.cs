@@ -113,6 +113,7 @@ namespace Stjornutextar.Controllers
 							else
 								subtitlePart.text2 = subtitlePartDivided[i];
 						}
+						subtitlePart.SubtitleID = subtitleVM.Subtitle.ID;
 						subtitleVM.Subtitle.SubtitleParts.Add(subtitlePart);
 					}
 				}

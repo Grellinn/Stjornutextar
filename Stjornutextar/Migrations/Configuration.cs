@@ -35,14 +35,14 @@ namespace Stjornutextar.Migrations
 				new Language { LanguageName = "Sænska" }
 				);
 
-			context.Titles.AddOrUpdate(
-				new Title { TitleName = "Dark Knight" },
-				new Title { TitleName = "Superbad" },
-				new Title { TitleName = "Breaking Bad" },
-				new Title { TitleName = "World War II - Documentary" },
-				new Title { TitleName = "Smurf" },
-				new Title { TitleName = "Seinfeld" }
-				);
+			//context.Titles.AddOrUpdate(
+			//	new Title { TitleName = "Dark Knight" },
+			//	new Title { TitleName = "Superbad" },
+			//	new Title { TitleName = "Breaking Bad" },
+			//	new Title { TitleName = "World War II - Documentary" },
+			//	new Title { TitleName = "Smurf" },
+			//	new Title { TitleName = "Seinfeld" }
+			//	);
 
 			context.Categories.AddOrUpdate(
 				new Category { CategoryName = "Kvikmyndir" },

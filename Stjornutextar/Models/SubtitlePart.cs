@@ -14,5 +14,8 @@ namespace Stjornutextar.Models
 		public string text2 { get; set; }
 		public string translatedText1 { get; set; }
 		public string translatedText2 { get; set; }
+
+		public int SubtitleID { get; set; }
+		public Subtitle Subtitle { get; set; }
 	}
 }
