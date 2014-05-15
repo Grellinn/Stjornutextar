@@ -69,11 +69,61 @@ namespace Stjornutextar.Controllers
 				subtitleVM.Subtitle.PublishDate = DateTime.Now;
 				subtitleVM.Subtitle.Status = "Óklárað";
 				subtitleVM.Subtitle.Votes = 0;
+				
 				if(subtitleVM.UlSubtitleFile.ContentLength != 0)
 				{
-					//SubPart newSubPart = new SubPart();
-					//newSubtitle.SubtitleFileText = new StreamReader(subtitleVM.SubFile.InputStream).Split("\r\n");
-//					return Json(newSubtitle, JsonRequestBehavior.AllowGet);
+					// Innihald skráar sett inn í SubtitleFileText breytu í Subtitle
+					subtitleVM.Subtitle.SubtitleFileText = new StreamReader(subtitleVM.UlSubtitleFile.InputStream).ReadToEnd();
+					// Búinn til listi af strengjum og SubtitleFileText splittað upp í strengja brot
+					List<string> TempSubtitleParts = subtitleVM.Subtitle.SubtitleFileText.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.None).ToList();
+					// Listi sem inniheldur hvert þýðingarbrot splittað upp fyrir ID, tíma og texta
+					List<List<string>> SubtitlePartsDivided = new List<List<string>>();
+
+					foreach (var subtitlePart in TempSubtitleParts)
+					{
+						List<string> temp = new List<string>();
+
+						foreach (var str in subtitlePart.Split(new string[] { "\r\n" }, StringSplitOptions.None).ToList())
+						{
+							temp.Add(str);
+						}
+						SubtitlePartsDivided.Add(temp);
+					}
+
+					subtitleVM.Subtitle.SubtitleParts = new List<SubtitlePart>();
+					
+					foreach (var subtitlePartDivided in SubtitlePartsDivided)
+					{
+						SubtitlePart subtitlePart = new SubtitlePart();
+						subtitlePart.SubtitlePartTexts = new List<SubtitlePartText>();
+						SubtitlePartText subtitlePartText = new SubtitlePartText();
+
+						for (int i = 0; i < subtitlePartDivided.Count(); i++)
+						{
+							if (i == 0)
+							{
+								if (subtitlePartDivided[i] != "")
+									subtitlePart.PartNumber = Convert.ToInt32(subtitlePartDivided[i]);
+								else
+									break;
+							}
+							else if (i == 1)
+								subtitlePart.Time = subtitlePartDivided[i];
+							else if (i == 2)
+							{
+								subtitlePartText.Text1 = subtitlePartDivided[i];
+								subtitlePart.SubtitlePartTexts.Add(subtitlePartText);
+							}
+							else
+							{
+								subtitlePartText.Text2 = subtitlePartDivided[i];
+								subtitlePart.SubtitlePartTexts.Add(subtitlePartText);
+							}
+						}
+						subtitleVM.Subtitle.SubtitleParts.Add(subtitlePart);
+					}
+
+					//return Json(subtitleVM.Subtitle, JsonRequestBehavior.AllowGet);
 				}
 				#endregion
 

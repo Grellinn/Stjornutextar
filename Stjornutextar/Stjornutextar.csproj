@@ -176,6 +176,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Subtitle.cs" />
+    <Compile Include="Models\SubtitlePart.cs" />
+    <Compile Include="Models\SubtitlePartText.cs" />
     <Compile Include="Models\Title.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SubtitleRepository.cs" />
