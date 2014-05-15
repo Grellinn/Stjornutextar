@@ -22,8 +22,6 @@ namespace Stjornutextar.Controllers
         public ActionResult Index(int id)
         {
 			SubtitlePartListViewModel subPartLVM = new SubtitlePartListViewModel();
-			subPartLVM.Categories = subRepo.PopulateCategories();
-			subPartLVM.Languages = subRepo.PopulateLanguages();
 			subPartLVM.Subtitle = subRepo.GetSubtitleById(id);
 			subPartLVM.SubtitleParts = subPartRepo.GetAllSubtitleParts(id);
 			
