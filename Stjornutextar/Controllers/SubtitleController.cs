@@ -45,22 +45,24 @@ namespace Stjornutextar.Controllers
 			SubtitleViewModel subtitleVM = new SubtitleViewModel();
 
 			List<Category> repoCategories = repo.PopulateCategories();
-			List<Category> Categories = new List<Category>();
-			foreach (var category in repoCategories)
-			{
-				if (Categories.Where(c => c.CategoryName == category.CategoryName).FirstOrDefault() == null)
-					Categories.Add(category);
-			}
-			subtitleVM.Categories =  Categories;
+			//List<Category> Categories = new List<Category>();
+			//foreach (var category in repoCategories)
+			//{
+			//	if (Categories.Where(c => c.CategoryName == category.CategoryName).FirstOrDefault() == null)
+			//		Categories.Add(category);
+			//}
+			//subtitleVM.Categories =  Categories;
+			subtitleVM.Categories = repoCategories;
 
 			List<Language> repoLanguages = repo.PopulateLanguages();
-			List<Language> Languages = new List<Language>();
-			foreach (var language in repoLanguages)
-			{
-				if (Languages.Where(l => l.LanguageName == language.LanguageName).FirstOrDefault() == null)
-					Languages.Add(language);
-			}
-			subtitleVM.Languages = Languages;
+			//List<Language> Languages = new List<Language>();
+			//foreach (var language in repoLanguages)
+			//{
+			//	if (Languages.Where(l => l.LanguageName == language.LanguageName).FirstOrDefault() == null)
+			//		Languages.Add(language);
+			//}
+			//subtitleVM.Languages = Languages;
+			subtitleVM.Languages = repoLanguages;
 
 			return View(subtitleVM);
         }
@@ -74,10 +76,13 @@ namespace Stjornutextar.Controllers
         {
 			if (ModelState.IsValid)
 			{
-				#region Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
-				subtitleVM.Subtitle.Category.CategoryName = repo.GetCategoryName(subtitleVM.Subtitle.Category.ID);
-				subtitleVM.Subtitle.Language.LanguageName = repo.GetLanguageName(subtitleVM.Subtitle.Language.ID);
-				#endregion
+				//#region Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
+				subtitleVM.Subtitle.Category = repo.GetCategory(subtitleVM.Subtitle.Category.ID);
+				subtitleVM.Subtitle.Language = repo.GetLanguage(subtitleVM.Subtitle.Language.ID);
+				//#endregion
+
+		
+
 
 				#region Viðbótarupplýsingar fyrir Subtitle sem kerfið setur sjálft
 				subtitleVM.Subtitle.PublishDate = DateTime.Now;
@@ -134,8 +139,8 @@ namespace Stjornutextar.Controllers
 			if (ModelState.IsValid)
             {
 				#region Sækir nafn á Category og Language í gagnagrunn og setur nafn í tilvikin í Subtitle
-				subtitleVM.Subtitle.Category.CategoryName = repo.GetCategoryName(subtitleVM.Subtitle.Category.ID);
-				subtitleVM.Subtitle.Language.LanguageName = repo.GetLanguageName(subtitleVM.Subtitle.Language.ID);
+				subtitleVM.Subtitle.Category = repo.GetCategory(subtitleVM.Subtitle.Category.ID);
+				subtitleVM.Subtitle.Language = repo.GetLanguage(subtitleVM.Subtitle.Language.ID);
 				#endregion
 
 				repo.UpdateSubtitle(subtitleVM.Subtitle);

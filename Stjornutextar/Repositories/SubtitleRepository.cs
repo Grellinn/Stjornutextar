@@ -124,5 +124,15 @@ namespace Stjornutextar.Repositories
 				SaveSubtitle();
 			}
 		}
+
+		internal Category GetCategory(int categoryId)
+		{
+			return db.Categories.Where(cat => cat.ID == categoryId).FirstOrDefault();
+		}
+
+		internal Language GetLanguage(int languageID)
+		{
+			return db.Languages.Where(lang => lang.ID == languageID).FirstOrDefault();
+		}
 	}	
 }
