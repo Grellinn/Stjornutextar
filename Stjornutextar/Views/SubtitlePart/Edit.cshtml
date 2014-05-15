@@ -18,18 +18,50 @@
         @Html.HiddenFor(model => model.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PartNumber, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.partNumber, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PartNumber)
-                @Html.ValidationMessageFor(model => model.PartNumber)
+                @Html.DisplayFor(model => model.partNumber)
+                @Html.ValidationMessageFor(model => model.partNumber)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Time, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.time, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Time)
-                @Html.ValidationMessageFor(model => model.Time)
+                @Html.DisplayFor(model => model.time)
+                @Html.ValidationMessageFor(model => model.time)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.text1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.text1)
+                @Html.ValidationMessageFor(model => model.text1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.text2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.text2)
+                @Html.ValidationMessageFor(model => model.text2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.translatedText1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.translatedText1)
+                @Html.ValidationMessageFor(model => model.translatedText1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.translatedText2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.translatedText2)
+                @Html.ValidationMessageFor(model => model.translatedText2)
             </div>
         </div>
 

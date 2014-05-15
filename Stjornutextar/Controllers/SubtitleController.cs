@@ -89,41 +89,32 @@ namespace Stjornutextar.Controllers
 						}
 						SubtitlePartsDivided.Add(temp);
 					}
+					SubtitlePartsDivided.RemoveAt(SubtitlePartsDivided.Count()-1);
 
 					subtitleVM.Subtitle.SubtitleParts = new List<SubtitlePart>();
-					
+					// Færum innihald skjátextaskráar sem var hlaðið inn úr listum í model og vistum í gagnagrunni
 					foreach (var subtitlePartDivided in SubtitlePartsDivided)
 					{
 						SubtitlePart subtitlePart = new SubtitlePart();
-						subtitlePart.SubtitlePartTexts = new List<SubtitlePartText>();
-						SubtitlePartText subtitlePartText = new SubtitlePartText();
 
 						for (int i = 0; i < subtitlePartDivided.Count(); i++)
 						{
 							if (i == 0)
 							{
 								if (subtitlePartDivided[i] != "")
-									subtitlePart.PartNumber = Convert.ToInt32(subtitlePartDivided[i]);
+									subtitlePart.partNumber = Convert.ToInt32(subtitlePartDivided[i]);
 								else
 									break;
 							}
 							else if (i == 1)
-								subtitlePart.Time = subtitlePartDivided[i];
+								subtitlePart.time = subtitlePartDivided[i];
 							else if (i == 2)
-							{
-								subtitlePartText.Text1 = subtitlePartDivided[i];
-								subtitlePart.SubtitlePartTexts.Add(subtitlePartText);
-							}
+								subtitlePart.text1 = subtitlePartDivided[i];
 							else
-							{
-								subtitlePartText.Text2 = subtitlePartDivided[i];
-								subtitlePart.SubtitlePartTexts.Add(subtitlePartText);
-							}
+								subtitlePart.text2 = subtitlePartDivided[i];
 						}
 						subtitleVM.Subtitle.SubtitleParts.Add(subtitlePart);
 					}
-
-					//return Json(subtitleVM.Subtitle, JsonRequestBehavior.AllowGet);
 				}
 				#endregion
 

@@ -23,7 +23,6 @@ namespace Stjornutextar.Models
 		public DbSet<Language> Languages { get; set; }
 		public DbSet<Subtitle> Subtitles { get; set; }
 		public DbSet<SubtitlePart> SubtitleParts { get; set; }
-		public DbSet<SubtitlePartText> SubtitlePartTexts { get; set; }
 
 		// Kemur í veg fyrir að EntityFramework-ið breyti nafni töflunnar í fleirtölu þegar hún býr hana til.
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
