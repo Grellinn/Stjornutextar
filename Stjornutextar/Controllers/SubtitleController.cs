@@ -69,6 +69,10 @@ namespace Stjornutextar.Controllers
         {
 			subtitleVM.Categories = subRepo.PopulateCategories();
 			subtitleVM.Languages = subRepo.PopulateLanguages();
+
+			subtitleVM.Subtitle.PublishDate = DateTime.Now;
+			subtitleVM.Subtitle.Status = "Óklárað";
+			subtitleVM.Subtitle.Votes = 0;
 			
 			if (ModelState.IsValid)
 			{
@@ -78,9 +82,7 @@ namespace Stjornutextar.Controllers
 				#endregion
 
 				#region Viðbótarupplýsingar fyrir Subtitle sem kerfið setur sjálft
-				subtitleVM.Subtitle.PublishDate = DateTime.Now;
-				subtitleVM.Subtitle.Status = "Óklárað";
-				subtitleVM.Subtitle.Votes = 0;
+				
 				
 				//if(subtitleVM.UlSubtitleFile.ContentLength != 0)
 				//{
