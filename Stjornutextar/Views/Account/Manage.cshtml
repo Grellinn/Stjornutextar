@@ -4,7 +4,8 @@
     ViewBag.Title = "Manage Account";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2> Aðgangsstýring</h2>
+<h3>Innskráður notandi:<strong> @User.Identity.GetUserName()</strong></h3>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div class="row">
