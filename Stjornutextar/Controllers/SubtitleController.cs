@@ -164,8 +164,8 @@ namespace Stjornutextar.Controllers
         //[ValidateAntiForgeryToken]
 		public ActionResult Edit(SubtitleViewModel subtitleVM)
         {
-			if (ModelState.IsValid)
-            {
+			//if (ModelState.IsValid)
+            //{
 				#region Sækir tilvik af Category og Language og setur í ViewModel-ið
 				subtitleVM.Subtitle.Category = subRepo.GetCategory(subtitleVM.Subtitle.Category.ID);
 				subtitleVM.Subtitle.Language = subRepo.GetLanguage(subtitleVM.Subtitle.Language.ID);
@@ -173,8 +173,8 @@ namespace Stjornutextar.Controllers
 
 				subRepo.UpdateSubtitle(subtitleVM.Subtitle);
                 return RedirectToAction("Index");
-            }
-            return View(subtitleVM);
+           // }
+//            return View(subtitleVM);
         }
 
 		// GET: /Subtitle/Download/5

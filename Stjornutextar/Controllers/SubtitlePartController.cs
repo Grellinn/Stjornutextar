@@ -56,7 +56,7 @@ namespace Stjornutextar.Controllers
 
 				if (subtitle.countTranslations == subtitle.SubtitleParts.Count)
 					subtitle.Status = "Klárað";
-				subRepo.UpdateSubtitle(subtitle);
+				subRepo.ChangeSubtitleStatus(subtitle);
 
 				return RedirectToAction("Index/" + subtitlePart.SubtitleID);
 			}

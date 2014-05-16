@@ -98,10 +98,14 @@ namespace Stjornutextar.Repositories
 				tempS.Category = s.Category;
 				tempS.Language = s.Language;
 				tempS.MediaURL = s.MediaURL;
-				tempS.Status = s.Status;
-				tempS.countTranslations = s.countTranslations;
 				SaveSubtitle();
 			}
+		}
+
+		// Fall sem breytir stöðu á þýðingu
+		public void ChangeSubtitleStatus(Subtitle subtitle)
+		{
+
 		}
 
 		// Fall sem skilar tilviki af Category úr gagnagrunni út frá categoryID sem er sent inn
