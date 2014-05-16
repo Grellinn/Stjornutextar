@@ -3,6 +3,9 @@
 
 @{
     ViewBag.Title = "Stjörnutextar";
+    <div class="img_container">
+        <img src="~/content/img/kings.jpg" />
+    </div>
 }
    
     @using (Html.BeginForm())
@@ -16,13 +19,13 @@
     }
     <div class="button_container">
         <div class="btn-group">
-            <button class="btn btn-default">@Html.ActionLink("Kvikmyndir","Index", new{ id = Model.Categories[0].ID})</button>
-            <button class="btn btn-default">@Html.ActionLink("Þættir", "Index", new { id = Model.Categories[1].ID })</button>
-            <button class="btn btn-default">@Html.ActionLink("Heimildarmyndir", "Index", new { id = Model.Categories[2].ID })</button>
-            <button class="btn btn-default">@Html.ActionLink("Barnaefni", "Index", new { id = Model.Categories[3].ID })</button>
+            <button class=" btn btn-primary">@Html.ActionLink("Kvikmyndir", "Index", new { id = Model.Categories[0].ID })</button>
+            <button class="btn btn-primary">@Html.ActionLink("Þættir", "Index", new { id = Model.Categories[1].ID })</button>
+            <button class="btn btn-primary">@Html.ActionLink("Heimildarmyndir", "Index", new { id = Model.Categories[2].ID })</button>
+            <button class="btn btn-primary">@Html.ActionLink("Barnaefni", "Index", new { id = Model.Categories[3].ID })</button>
         </div>
     </div>
-<div class="btn btn-default" style="float:right;">
+<div class="btn btn-success" style="float:right;">
     @Html.ActionLink("Stofna Þýðingu", "Create")
 </div>
             
@@ -67,8 +70,7 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MediaURL)
-            </td>
+                <a class="glyphicon glyphicon-facetime-video" </td>
             <td>
                 <a class="glyphicon glyphicon-download-alt" href=@Url.Action("CreateFile/" + item.ID)> </a>
             </td>
