@@ -19,22 +19,27 @@ namespace Stjornutextar.Controllers
 		SubtitleRepository repo = new SubtitleRepository();
 
         // GET: /Subtitle/
-        public ActionResult Index(string name)
+        public ActionResult Index(string name, int? id)
         {
-            string searchString = name;
-			SubtitleListViewModel subtitleLVM = new SubtitleListViewModel();
-			subtitleLVM.Categories = repo.PopulateCategories();
-			subtitleLVM.Languages = repo.PopulateLanguages();
+            SubtitleListViewModel subtitleLVM = new SubtitleListViewModel();
+            subtitleLVM.Categories = repo.PopulateCategories();
+            subtitleLVM.Languages = repo.PopulateLanguages();
 
-            if (!String.IsNullOrEmpty(searchString))
+
+            if (!String.IsNullOrEmpty(name))
             {
-				subtitleLVM.Subtitles = repo.GetSubtitleByName(searchString);
-				return View(subtitleLVM);
+                subtitleLVM.Subtitles = repo.GetSubtitleByName(name);
+                return View(subtitleLVM);
             }
-            else
+            else if (id != null)
+            {
+                subtitleLVM.Subtitles = repo.GetSubtitlesByCategory(id);
+                return View(subtitleLVM);
+            }
+            else 
             {
                 subtitleLVM.Subtitles = repo.GetAllSubtitles();
-				return View(subtitleLVM);
+                return View(subtitleLVM);
             }
            
         }

@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Stjörnutextar";
 }
-    <div class="img_container"><img src="~/Content/img/Logo.png" /></div>
+   
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -16,23 +16,23 @@
     }
     <div class="button_container">
         <div class="btn-group">
-            <button class="btn btn-default">Kvikmyndir</button>
-            <button class="btn btn-default">Þættir</button>
-            <button class="btn btn-default">Fræðsla</button>
-            <button class="btn btn-default">Barnaefni</button>
+            <button class="btn btn-default">@Html.ActionLink("Kvikmyndir","Index", new{ id = Model.Categories[0].ID})</button>
+            <button class="btn btn-default">@Html.ActionLink("Þættir", "Index", new { id = Model.Categories[1].ID })</button>
+            <button class="btn btn-default">@Html.ActionLink("Heimildarmyndir", "Index", new { id = Model.Categories[2].ID })</button>
+            <button class="btn btn-default">@Html.ActionLink("Barnaefni", "Index", new { id = Model.Categories[3].ID })</button>
         </div>
     </div>
 <div class="btn btn-default" style="float:right;">
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Stofna Þýðingu", "Create")
 </div>
             
 <table class="table">
     <tr>
         <th>
-            Flokkar
+           Flokkur
         </th>
         <th>
-            Titill
+           Titill
         </th>
         <th>
             Staða
@@ -70,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.MediaURL)
             </td>
             <td>
-                
+                <a class="glyphicon glyphicon-download-alt" href=@Url.Action("Create")> </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishDate)
@@ -80,10 +80,10 @@
                 @Html.DisplayFor(modelItem => item.Language.LanguageName)
             </td>
             <td>
-
+                <a class="glyphicon glyphicon-thumbs-up" href=@Url.Action("Create")> </a>
             </td>
             <td>
-                <span class="btn btn-group-sm"> @Html.ActionLink("Edit", "Edit", new { id=item.ID })</span>
+                @Html.ActionLink("Breyta", "Edit", new { id=item.ID })
             </td>
         </tr>
     }
