@@ -18,7 +18,6 @@ namespace Stjornutextar.Models
 		}
 
 		// Búum töflur fyrir gagnagrunninn sem á að mappa við klasana.
-		public DbSet<Title> Titles { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Language> Languages { get; set; }
 		public DbSet<Subtitle> Subtitles { get; set; }

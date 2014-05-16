@@ -90,6 +90,7 @@ namespace Stjornutextar.Repositories
 		public void UpdateSubtitle(Subtitle s)
 		{
 			Subtitle tempS = GetSubtitleById(s.ID);
+			s.SubtitleParts = null;
 
 			if (tempS != null)
 			{
@@ -97,6 +98,8 @@ namespace Stjornutextar.Repositories
 				tempS.Category = s.Category;
 				tempS.Language = s.Language;
 				tempS.MediaURL = s.MediaURL;
+				tempS.Status = s.Status;
+				tempS.countTranslations = s.countTranslations;
 				SaveSubtitle();
 			}
 		}
