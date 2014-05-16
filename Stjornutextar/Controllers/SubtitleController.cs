@@ -14,13 +14,15 @@ using System.Text;
 
 namespace Stjornutextar.Controllers
 {
-    public class SubtitleController : Controller
+    [Authorize]
+	public class SubtitleController : Controller
     {
 		// Búum til tilvik af repository-inum okkar til að vinna með í gegnum föllin.
 		SubtitleRepository subRepo = new SubtitleRepository();
 		SubtitlePartRepository subPartRepo = new SubtitlePartRepository();
 
         // GET: /Subtitle/
+		[AllowAnonymous]
         public ActionResult Index(string name, int? id)
         {
             SubtitleListViewModel subtitleLVM = new SubtitleListViewModel();
@@ -171,6 +173,7 @@ namespace Stjornutextar.Controllers
         }
 
 		// GET: /Subtitle/Download/5
+		[AllowAnonymous]
 		public FileStreamResult CreateFile(int id)
 		{
 			Subtitle subtitle = subRepo.GetSubtitleById(id);
