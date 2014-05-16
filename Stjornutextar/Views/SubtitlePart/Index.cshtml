@@ -6,6 +6,10 @@
 
 <h2>Skjátextabrot fyrir @Model.Subtitle.Title</h2>
 
+<div class="col-lg-offset-3">
+    <iframe width="560" height="315" src="@Model.Subtitle.MediaURL.Replace("watch?v=", "embed/")" frameborder="1"></iframe>
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -58,5 +62,5 @@
 </table>
 
 <div>
-    @Html.ActionLink("Back to List", "Index", "Subtitle")
+    @Html.ActionLink("Til baka í lista", "Index", "Subtitle")
 </div>

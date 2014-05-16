@@ -82,8 +82,6 @@ namespace Stjornutextar.Controllers
 				#endregion
 
 				#region Viðbótarupplýsingar fyrir Subtitle sem kerfið setur sjálft
-				
-				
 				//if(subtitleVM.UlSubtitleFile.ContentLength != 0)
 				//{
 					// Innihald skráar sett inn í SubtitleFileText breytu í Subtitle

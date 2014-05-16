@@ -22,7 +22,7 @@ namespace Stjornutextar.Models
 			//var postedFileName = ((HttpPostedFileBase)value).FileName.ToLower();
 			string temp = value.ToString();
 			
-			if (temp.StartsWith("http://") != true)
+			if (temp.StartsWith("http://") != true && temp.StartsWith("https://") != true)
 			{
 				return false;
 			}

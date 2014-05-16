@@ -24,6 +24,7 @@ namespace Stjornutextar.Controllers
         {
 			SubtitlePartListViewModel subPartLVM = new SubtitlePartListViewModel();
 			subPartLVM.Subtitle = subRepo.GetSubtitleById(id);
+			subPartLVM.Subtitle.MediaURL.Replace("watch?v=", "embed/");
 			subPartLVM.SubtitleParts = subPartRepo.GetAllSubtitlePartsById(id);
 			
 			return View(subPartLVM);
