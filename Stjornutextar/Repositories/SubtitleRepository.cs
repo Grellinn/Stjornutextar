@@ -105,7 +105,16 @@ namespace Stjornutextar.Repositories
 		// Fall sem breytir stöðu á þýðingu
 		public void ChangeSubtitleStatus(Subtitle subtitle)
 		{
+			Subtitle tempS = GetSubtitleById(subtitle.ID);
+			subtitle.SubtitleParts = null;
 
+			if (tempS != null)
+			{
+				// Uppfærum Category, Language og MediaURL
+				tempS.countTranslations = subtitle.countTranslations;
+				tempS.Status = subtitle.Status;
+				SaveSubtitle();
+			}
 		}
 
 		// Fall sem skilar tilviki af Category úr gagnagrunni út frá categoryID sem er sent inn
