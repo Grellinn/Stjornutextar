@@ -25,10 +25,10 @@ namespace Stjornutextar.Repositories
 		// Búum til tilvik af gagnagrunninum okkar til að vinna með.
 		ApplicationDbContext db = new ApplicationDbContext();
 
-		// Fall sem sækir alla skjátexta í gagnagrunn
-		public List<Subtitle> GetAllSubtitles()
+		// Fall sem skilar fyrstu 10 skjátextunum úr gagnagrunni
+		public List<Subtitle> GetFirst10Subtitles()
 		{
-			List<Subtitle> allSubtitles = db.Subtitles.OrderByDescending(s => s.PublishDate).ToList();
+			List<Subtitle> allSubtitles = db.Subtitles.OrderByDescending(s => s.PublishDate).Take(10).ToList();
 			
 			return allSubtitles;
 		}

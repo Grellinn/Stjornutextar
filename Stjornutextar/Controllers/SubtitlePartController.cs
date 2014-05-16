@@ -23,7 +23,7 @@ namespace Stjornutextar.Controllers
         {
 			SubtitlePartListViewModel subPartLVM = new SubtitlePartListViewModel();
 			subPartLVM.Subtitle = subRepo.GetSubtitleById(id);
-			subPartLVM.SubtitleParts = subPartRepo.GetAllSubtitleParts(id);
+			subPartLVM.SubtitleParts = subPartRepo.GetAllSubtitlePartsById(id);
 			
 			return View(subPartLVM);
         }
