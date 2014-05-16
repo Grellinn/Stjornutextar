@@ -80,7 +80,7 @@ namespace Stjornutextar.Controllers
 				if(subtitleVM.UlSubtitleFile.ContentLength != 0)
 				{
 					// Innihald skráar sett inn í SubtitleFileText breytu í Subtitle
-					subtitleVM.Subtitle.SubtitleFileText = new StreamReader(subtitleVM.UlSubtitleFile.InputStream).ReadToEnd();
+					subtitleVM.Subtitle.SubtitleFileText = new StreamReader(subtitleVM.UlSubtitleFile.InputStream, Encoding.UTF8, false).ReadToEnd();
 					// Búinn til listi af strengjum og SubtitleFileText splittað upp í strengja brot
 					List<string> TempSubtitleParts = subtitleVM.Subtitle.SubtitleFileText.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.None).ToList();
 					// Listi sem inniheldur hvert þýðingarbrot splittað upp fyrir ID, tíma og texta
