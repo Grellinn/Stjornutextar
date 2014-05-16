@@ -58,6 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Subtitle.PublishDate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+               
                 @Html.DisplayFor(model => model.Subtitle.PublishDate)
                 @Html.ValidationMessageFor(model => model.Subtitle.PublishDate)
             </div>
@@ -66,8 +67,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Vista" class="btn btn-default" />
-                @Html.ActionLink("Þýða skjátexta", "index", "SubtitlePart", new { id=Model.Subtitle.ID },new { @class = "btn btn-default" })
+                <input type="submit" value="Vista" class="btn btn-primary" />
+                @Html.ActionLink("Þýða skjátexta", "index", "SubtitlePart", new { id = Model.Subtitle.ID }, new { @class = "btn btn-success" })
             </div>
         </div>
     </div>

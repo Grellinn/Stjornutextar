@@ -1,17 +1,16 @@
 ﻿@model Stjornutextar.ViewModels.SubtitleViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Stofna Þýðingu";
 }
 
-<h2>Create</h2>
+<h2>Stofna Þýðingu</h2>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "subtitleForm", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Subtitle</h4>
         <hr />
         @Html.ValidationSummary(true)
 
@@ -57,7 +56,7 @@
 
         <div class="form-group"> 
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Stofna þýðingu" class="btn btn-success" />
             </div>
         </div>
     </div>
