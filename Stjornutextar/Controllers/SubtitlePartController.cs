@@ -12,7 +12,8 @@ using Stjornutextar.ViewModels;
 
 namespace Stjornutextar.Controllers
 {
-    public class SubtitlePartController : Controller
+    [Authorize]
+	public class SubtitlePartController : Controller
     {
 		// Búum til tilvik af repository-inum okkar til að vinna með í gegnum föllin.
 		SubtitlePartRepository subPartRepo = new SubtitlePartRepository();
@@ -49,6 +50,14 @@ namespace Stjornutextar.Controllers
 			if (ModelState.IsValid)
 			{
 				subPartRepo.UpdateSubtitlePart(subtitlePart);
+				Subtitle subtitle = subRepo.GetSubtitleById(subtitlePart.SubtitleID);
+				subtitle.SubtitleParts = subPartRepo.GetAllSubtitlePartsById(subtitlePart.SubtitleID);
+				subtitle.countTranslations++;
+
+				if (subtitle.countTranslations == subtitle.SubtitleParts.Count)
+					subtitle.Status = "Klárað";
+				subRepo.UpdateSubtitle(subtitle);
+
 				return RedirectToAction("Index/" + subtitlePart.SubtitleID);
 			}
 			return View(subtitlePart);
