@@ -58,7 +58,7 @@ namespace Stjornutextar.Controllers
 			#endregion
 
 			return View(subtitleVM);
-        }
+        }	
 
         // POST: /Subtitle/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -67,6 +67,9 @@ namespace Stjornutextar.Controllers
         //[ValidateAntiForgeryToken]
 		public ActionResult Create(SubtitleViewModel subtitleVM)
         {
+			subtitleVM.Categories = subRepo.PopulateCategories();
+			subtitleVM.Languages = subRepo.PopulateLanguages();
+			
 			if (ModelState.IsValid)
 			{
 				#region Sækir tilvik af Category og Language og setur í ViewModel-ið
@@ -79,10 +82,10 @@ namespace Stjornutextar.Controllers
 				subtitleVM.Subtitle.Status = "Óklárað";
 				subtitleVM.Subtitle.Votes = 0;
 				
-				if(subtitleVM.UlSubtitleFile.ContentLength != 0)
-				{
+				//if(subtitleVM.UlSubtitleFile.ContentLength != 0)
+				//{
 					// Innihald skráar sett inn í SubtitleFileText breytu í Subtitle
-					subtitleVM.Subtitle.SubtitleFileText = new StreamReader(subtitleVM.UlSubtitleFile.InputStream, Encoding.UTF8, false).ReadToEnd();
+					subtitleVM.Subtitle.SubtitleFileText = new StreamReader(subtitleVM.SubtitleFile.InputStream, Encoding.UTF8, false).ReadToEnd();
 					// Búinn til listi af strengjum og SubtitleFileText splittað upp í strengja brot
 					List<string> TempSubtitleParts = subtitleVM.Subtitle.SubtitleFileText.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.None).ToList();
 					// Listi sem inniheldur hvert þýðingarbrot splittað upp fyrir ID, tíma og texta
@@ -125,7 +128,7 @@ namespace Stjornutextar.Controllers
 						subtitlePart.SubtitleID = subtitleVM.Subtitle.ID;
 						subtitleVM.Subtitle.SubtitleParts.Add(subtitlePart);
 					}
-				}
+				//}
 				#endregion
 
 				subRepo.AddSubtitle(subtitleVM.Subtitle);
