@@ -25,7 +25,7 @@ namespace Stjornutextar.Repositories
 		ApplicationDbContext db = new ApplicationDbContext();
 
 		// Fall sem skilar öllum skjátextapörtum úr gagnagrunni
-		public List<SubtitlePart> GetAllSubtitleParts(int id)
+		public List<SubtitlePart> GetAllSubtitlePartsById(int id)
 		{
 			List<SubtitlePart> listOfSubtitleParts = db.SubtitleParts.Where(subPart => subPart.SubtitleID == id).ToList();
 

@@ -10,35 +10,37 @@ using Stjornutextar.Models;
 using Stjornutextar.Repositories;
 using System.IO;
 using Stjornutextar.ViewModels;
+using System.Text;
 
 namespace Stjornutextar.Controllers
 {
     public class SubtitleController : Controller
     {
 		// Búum til tilvik af repository-inum okkar til að vinna með í gegnum föllin.
-		SubtitleRepository repo = new SubtitleRepository();
+		SubtitleRepository subRepo = new SubtitleRepository();
+		SubtitlePartRepository subPartRepo = new SubtitlePartRepository();
 
         // GET: /Subtitle/
         public ActionResult Index(string name, int? id)
         {
             SubtitleListViewModel subtitleLVM = new SubtitleListViewModel();
-            subtitleLVM.Categories = repo.PopulateCategories();
-            subtitleLVM.Languages = repo.PopulateLanguages();
+            subtitleLVM.Categories = subRepo.PopulateCategories();
+            subtitleLVM.Languages = subRepo.PopulateLanguages();
 
 
             if (!String.IsNullOrEmpty(name))
             {
-                subtitleLVM.Subtitles = repo.GetSubtitleByName(name);
+                subtitleLVM.Subtitles = subRepo.GetSubtitleByName(name);
                 return View(subtitleLVM);
             }
             else if (id != null)
             {
-                subtitleLVM.Subtitles = repo.GetSubtitlesByCategory(id);
+                subtitleLVM.Subtitles = subRepo.GetSubtitlesByCategory(id);
                 return View(subtitleLVM);
             }
             else 
             {
-                subtitleLVM.Subtitles = repo.GetAllSubtitles();
+                subtitleLVM.Subtitles = subRepo.GetFirst10Subtitles();
                 return View(subtitleLVM);
             }
            
@@ -49,8 +51,8 @@ namespace Stjornutextar.Controllers
 		{
 			#region Búa til ViewModel og fylla inn í það flokka, tungumál og þýðingu
 			SubtitleViewModel subtitleVM = new SubtitleViewModel();
-			subtitleVM.Categories = repo.PopulateCategories();
-			subtitleVM.Languages = repo.PopulateLanguages();
+			subtitleVM.Categories = subRepo.PopulateCategories();
+			subtitleVM.Languages = subRepo.PopulateLanguages();
 			#endregion
 
 			return View(subtitleVM);
@@ -66,8 +68,8 @@ namespace Stjornutextar.Controllers
 			if (ModelState.IsValid)
 			{
 				#region Sækir tilvik af Category og Language og setur í ViewModel-ið
-				subtitleVM.Subtitle.Category = repo.GetCategory(subtitleVM.Subtitle.Category.ID);
-				subtitleVM.Subtitle.Language = repo.GetLanguage(subtitleVM.Subtitle.Language.ID);
+				subtitleVM.Subtitle.Category = subRepo.GetCategory(subtitleVM.Subtitle.Category.ID);
+				subtitleVM.Subtitle.Language = subRepo.GetLanguage(subtitleVM.Subtitle.Language.ID);
 				#endregion
 
 				#region Viðbótarupplýsingar fyrir Subtitle sem kerfið setur sjálft
@@ -124,7 +126,7 @@ namespace Stjornutextar.Controllers
 				}
 				#endregion
 
-				repo.AddSubtitle(subtitleVM.Subtitle);
+				subRepo.AddSubtitle(subtitleVM.Subtitle);
                 return RedirectToAction("Index");
             }
 
@@ -136,9 +138,9 @@ namespace Stjornutextar.Controllers
 		{
 			#region Búa til ViewModel og fylla inn í það flokka, tungumál og þýðingu
 			SubtitleViewModel subtitleVM = new SubtitleViewModel();
-			subtitleVM.Categories = repo.PopulateCategories();
-			subtitleVM.Languages = repo.PopulateLanguages();
-			subtitleVM.Subtitle = repo.GetSubtitleById(id);
+			subtitleVM.Categories = subRepo.PopulateCategories();
+			subtitleVM.Languages = subRepo.PopulateLanguages();
+			subtitleVM.Subtitle = subRepo.GetSubtitleById(id);
 			#endregion
 
 			if (subtitleVM.Subtitle == null)
@@ -158,14 +160,45 @@ namespace Stjornutextar.Controllers
 			if (ModelState.IsValid)
             {
 				#region Sækir tilvik af Category og Language og setur í ViewModel-ið
-				subtitleVM.Subtitle.Category = repo.GetCategory(subtitleVM.Subtitle.Category.ID);
-				subtitleVM.Subtitle.Language = repo.GetLanguage(subtitleVM.Subtitle.Language.ID);
+				subtitleVM.Subtitle.Category = subRepo.GetCategory(subtitleVM.Subtitle.Category.ID);
+				subtitleVM.Subtitle.Language = subRepo.GetLanguage(subtitleVM.Subtitle.Language.ID);
 				#endregion
 
-				repo.UpdateSubtitle(subtitleVM.Subtitle);
+				subRepo.UpdateSubtitle(subtitleVM.Subtitle);
                 return RedirectToAction("Index");
             }
             return View(subtitleVM);
         }
+
+		// GET: /Subtitle/Download/5
+		public FileStreamResult CreateFile(int id)
+		{
+			Subtitle subtitle = subRepo.GetSubtitleById(id);
+			List<SubtitlePart> subtitleParts = subPartRepo.GetAllSubtitlePartsById(id);
+			
+			string data = "";
+			string tempData;
+
+			for (int i = 0; i < subtitleParts.Count; i++) // Rúllar í gegnum alla SubtitleParta í listanum og skrifar bætir við í einn streng
+			{
+				if (subtitleParts[i].translatedText2 != null )
+				{
+					tempData = (subtitleParts[i].partNumber + "\r\n" + subtitleParts[i].time + "\r\n" + subtitleParts[i].translatedText1 + "\r\n" + subtitleParts[i].translatedText2 + "\r\n" + "\r\n");
+					data = data + tempData;
+				}
+				else
+				{
+					tempData = (subtitleParts[i].partNumber + "\r\n" + subtitleParts[i].time + "\r\n" + subtitleParts[i].translatedText1 + "\r\n" + "\r\n");
+					data = data + tempData;
+				}
+			}
+			//todo: add some data from your database into that string:
+			var string_with_your_data = data;
+
+			var byteArray = Encoding.UTF8.GetBytes(string_with_your_data);
+			var stream = new MemoryStream(byteArray);
+
+			return File(stream, "text/plain", subtitle.Title + ".srt");
+		}
     }
 }

@@ -70,7 +70,7 @@
                 @Html.DisplayFor(modelItem => item.MediaURL)
             </td>
             <td>
-                <a class="glyphicon glyphicon-download-alt" href=@Url.Action("Create")> </a>
+                <a class="glyphicon glyphicon-download-alt" href=@Url.Action("CreateFile/" + item.ID)> </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishDate)
