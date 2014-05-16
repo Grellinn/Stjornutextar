@@ -83,7 +83,7 @@ namespace Stjornutextar.Controllers
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Subtitle");
                 }
                 else
                 {
@@ -290,7 +290,7 @@ namespace Stjornutextar.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Subtitle");
         }
 
         //
@@ -372,7 +372,7 @@ namespace Stjornutextar.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Subtitle");
             }
         }
 
