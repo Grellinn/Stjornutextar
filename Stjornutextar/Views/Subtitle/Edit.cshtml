@@ -16,7 +16,7 @@
         @Html.HiddenFor(model => model.Subtitle.ID)
         
         <div class="form-group">
-            @Html.LabelFor(model => model.Subtitle.Title, new { @class = "control-label col-md-2" })
+            @Html.Label("Titill", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.Subtitle.Title)
                 @Html.ValidationMessageFor(model => model.Subtitle.Title)
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Subtitle.Category, new { @class = "control-label col-md-2" })
+            @Html.Label("Flokkur", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Subtitle.Category.ID, new SelectList(Model.Categories, "ID", "CategoryName"))
                 @Html.ValidationMessageFor(model => model.Subtitle.Category)
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Subtitle.Language, new { @class = "control-label col-md-2" })
+            @Html.Label("Tungumál", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Subtitle.Language.ID, new SelectList(Model.Languages, "ID", "LanguageName"))
                 @Html.ValidationMessageFor(model => model.Subtitle.Language)
@@ -40,7 +40,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Subtitle.Status, new { @class = "control-label col-md-2" })
+            @Html.Label("Staða", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DisplayFor(model => model.Subtitle.Status)
                 @Html.ValidationMessageFor(model => model.Subtitle.Status)
@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Subtitle.MediaURL, new { @class = "control-label col-md-2" })
+            @Html.Label("Hlekkur á myndband", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Subtitle.MediaURL)
                 @Html.ValidationMessageFor(model => model.Subtitle.MediaURL)
@@ -56,7 +56,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Subtitle.PublishDate, new { @class = "control-label col-md-2" })
+            @Html.Label("Dagsetning", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                
                 @Html.DisplayFor(model => model.Subtitle.PublishDate)
